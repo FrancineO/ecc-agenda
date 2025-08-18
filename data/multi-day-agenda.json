@@ -1,0 +1,333 @@
+{
+  "conference": {
+    "name": "Pega ECC 2025",
+    "startDate": "2025-08-14",
+    "endDate": "2025-08-16",
+    "venue": "Convention Center",
+    "description": "Empowering Digital Transformation"
+  },
+  "commonSessions": {
+    "thursday": {
+      "date": "2025-11-20",
+      "dateFormatted": "Thursday, November 20, 2025",
+      "theme": "Strategy and Vision",
+      "agenda": [
+        {
+          "id": "thu-registration",
+          "title": "Consulting Welcome",
+          "description": "Welcome session for all attendees",
+          "speaker": "",
+          "speakerTitle": "",
+          "time": "15:30",
+          "endTime": "15:45",
+          "duration": "15 min",
+          "room": "Main Auditorium",
+          "tags": ["Welcome"],
+          "isBreak": true,
+          "type": "break",
+          "isCommon": true
+        },
+        {
+          "id": "thu-opening",
+          "title": "Strategy for Pega Consulting",
+          "description": "Global strategy overview for all regions",
+          "speaker": "Global Director",
+          "speakerTitle": "Global Director",
+          "time": "15:45",
+          "endTime": "16:45",
+          "duration": "60 min",
+          "room": "Main Auditorium",
+          "tags": ["Strategy", "Global"],
+          "isBreak": false,
+          "type": "keynote",
+          "isCommon": true,
+          "imageUrl": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop"
+        },
+        {
+          "id": "thu-platform",
+          "title": "Blueprint Delivered: Reimagining Software Creation",
+          "description": "Session that introduces the new Blueprint Delivered model and discuss why this change is needed. A global perspective for all regions.",
+          "speaker": "Chief Technology Officer",
+          "speakerTitle": "CTO",
+          "time": "16:45",
+          "endTime": "17:30",
+          "duration": "45 min",
+          "room": "Main Auditorium",
+          "tags": ["Blueprint", "Vision", "Low-Code"],
+          "isBreak": false,
+          "type": "session",
+          "isCommon": true,
+          "imageUrl": "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=300&fit=crop"
+        },
+        {
+          "id": "thu-closing",
+          "title": "Future Vision",
+          "description": "Describe the future vision; what can we do now, where are we in 6 months and where do we expect to be in 2 years",
+          "speaker": "CEO",
+          "speakerTitle": "Chief Executive Officer",
+          "time": "17:30",
+          "endTime": "17:45",
+          "duration": "15 min",
+          "room": "Main Auditorium",
+          "tags": ["Vision", "Strategy"],
+          "isBreak": false,
+          "type": "closing",
+          "isCommon": true,
+          "imageUrl": "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=300&fit=crop"
+        }
+      ]
+    },
+    "friday": {
+      "date": "2025-11-21",
+      "dateFormatted": "Friday, November 21, 2025",
+      "theme": "Global Sessions",
+      "agenda": [
+        {
+          "id": "fri-morning",
+          "title": "Blueprint to Value: Unified Delivery Excellence",
+          "description": "The complete journey from blueprinting through value activation, emphasizes the collaborative nature of the delivery method and positions the session as the culmination of excellence across all roles.",
+          "speaker": "Global Delivery Lead",
+          "speakerTitle": "Global Delivery Lead",
+          "time": "16:45",
+          "endTime": "17:45",
+          "duration": "60 min",
+          "room": "Main Auditorium",
+          "tags": ["Blueprint", "Delivery", "Global"],
+          "isBreak": false,
+          "type": "session",
+          "isCommon": true,
+          "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop"
+        }
+      ]
+    },
+    "saturday": {
+      "date": "2025-11-22",
+      "dateFormatted": "Saturday, November 22, 2025",
+      "theme": "Closing Sessions",
+      "agenda": [
+        {
+          "id": "sat-closing",
+          "title": "Conference Wrap-up",
+          "description": "Final thoughts and next steps for all regions",
+          "speaker": "Leadership Team",
+          "speakerTitle": "Leadership Team",
+          "time": "15:00",
+          "endTime": "16:00",
+          "duration": "60 min",
+          "room": "Main Auditorium",
+          "tags": ["Closing", "Global"],
+          "isBreak": false,
+          "type": "closing",
+          "isCommon": true
+        }
+      ]
+    }
+  },
+  "regions": {
+    "west": {
+      "name": "West Region",
+      "description": "Western European Markets",
+      "days": {
+        "friday": {
+          "date": "2025-11-21",
+          "dateFormatted": "Friday, November 21, 2025",
+          "theme": "West Region Breakouts",
+          "agenda": [
+            {
+              "id": "fri-breakout-west",
+              "title": "West Region Breakout Sessions",
+              "description": "Regional breakout sessions focusing on Western European markets and specific client challenges",
+              "speaker": "West Region Team",
+              "speakerTitle": "Regional Team",
+              "time": "8:30",
+              "endTime": "16:30",
+              "duration": "8 hours",
+              "room": "West Conference Room",
+              "tags": ["Workshop", "West Region", "Breakout"],
+              "isBreak": false,
+              "type": "workshop",
+              "isCommon": false
+            }
+          ]
+        },
+        "saturday": {
+          "date": "2025-11-22",
+          "dateFormatted": "Saturday, November 22, 2025",
+          "theme": "West Region Sessions",
+          "agenda": [
+            {
+              "id": "sat-delivery-west",
+              "title": "West Region Delivery Excellence",
+              "description": "Best practices and case studies from Western European deliveries",
+              "speaker": "West Delivery Manager",
+              "speakerTitle": "Delivery Manager",
+              "time": "9:00",
+              "endTime": "14:00",
+              "duration": "5 hours",
+              "room": "West Training Room",
+              "tags": ["Delivery", "Best Practices", "West", "Breakout"],
+              "isBreak": false,
+              "type": "workshop",
+              "isCommon": false
+            }
+          ]
+        }
+      }
+    },
+    "south": {
+      "name": "South Region",
+      "description": "Southern European Markets",
+      "days": {
+        "friday": {
+          "date": "2025-11-21",
+          "dateFormatted": "Friday, November 21, 2025",
+          "theme": "South Region Breakouts",
+          "agenda": [
+            {
+              "id": "fri-innovation-south",
+              "title": "South Region Innovation Lab",
+              "description": "Exploring innovative solutions for Southern European markets with hands-on workshops",
+              "speaker": "South Innovation Team",
+              "speakerTitle": "Innovation Team",
+              "time": "8:30",
+              "endTime": "16:30",
+              "duration": "8 hours",
+              "room": "South Innovation Lab",
+              "tags": ["Innovation", "South Region", "Breakout"],
+              "isBreak": false,
+              "type": "workshop",
+              "isCommon": false
+            }
+          ]
+        },
+        "saturday": {
+          "date": "2025-11-22",
+          "dateFormatted": "Saturday, November 22, 2025",
+          "theme": "South Region Sessions",
+          "agenda": [
+            {
+              "id": "sat-collaboration-south",
+              "title": "South Region Cross-Team Collaboration",
+              "description": "Building stronger collaboration across Southern European teams",
+              "speaker": "South Team Leads",
+              "speakerTitle": "Team Leads",
+              "time": "9:00",
+              "endTime": "14:00",
+              "duration": "5 hours",
+              "room": "South Collaboration Space",
+              "tags": ["Collaboration", "Team Building", "South", "Breakout"],
+              "isBreak": false,
+              "type": "workshop",
+              "isCommon": false
+            }
+          ]
+        }
+      }
+    },
+    "north": {
+      "name": "North Region",
+      "description": "Northern European Markets",
+      "days": {
+        "friday": {
+          "date": "2025-11-21",
+          "dateFormatted": "Friday, November 21, 2025",
+          "theme": "North Region Breakouts",
+          "agenda": [
+            {
+              "id": "fri-tech-north",
+              "title": "North Region Technology Deep Dive",
+              "description": "Advanced technical sessions for Northern European teams with focus on emerging technologies",
+              "speaker": "North Tech Team",
+              "speakerTitle": "Technical Team",
+              "time": "8:30",
+              "endTime": "16:30",
+              "duration": "8 hours",
+              "room": "North Tech Center",
+              "tags": ["Technology", "North Region", "Breakout"],
+              "isBreak": false,
+              "type": "workshop",
+              "isCommon": false
+            }
+          ]
+        },
+        "saturday": {
+          "date": "2025-11-22",
+          "dateFormatted": "Saturday, November 22, 2025",
+          "theme": "North Region Sessions",
+          "agenda": [
+            {
+              "id": "sat-future-north",
+              "title": "North Region Future Roadmap",
+              "description": "Planning the future direction for Northern European operations",
+              "speaker": "North Strategy Team",
+              "speakerTitle": "Strategy Team",
+              "time": "9:00",
+              "endTime": "14:00",
+              "duration": "5 hours",
+              "room": "North Strategy Room",
+              "tags": ["Future", "Roadmap", "North", "Breakout"],
+              "isBreak": false,
+              "type": "workshop",
+              "isCommon": false
+            }
+          ]
+        }
+      }
+    }
+  },
+  "speakers": [
+    {
+      "id": "alan-trefler",
+      "name": "Alan Trefler",
+      "title": "CEO Pegasystems",
+      "bio": "Visionary leader in enterprise software development",
+      "imageUrl": "/api/placeholder/150/150",
+      "social": {
+        "twitter": "@alantrefler",
+        "linkedin": "alantrefler"
+      }
+    },
+    {
+      "id": "sarah-johnson",
+      "name": "Sarah Johnson",
+      "title": "Principal Architect",
+      "bio": "Expert in enterprise architecture and platform development",
+      "imageUrl": "/api/placeholder/150/150",
+      "social": {
+        "linkedin": "sarahjohnson"
+      }
+    }
+  ],
+  "rooms": [
+    {
+      "id": "main-auditorium",
+      "name": "Main Auditorium",
+      "capacity": 500,
+      "description": "Main venue for keynotes and major sessions"
+    },
+    {
+      "id": "tech-theater",
+      "name": "Tech Theater",
+      "capacity": 200,
+      "description": "Technical presentations and deep-dive sessions"
+    },
+    {
+      "id": "ai-lab",
+      "name": "AI Lab",
+      "capacity": 150,
+      "description": "AI and machine learning focused sessions"
+    },
+    {
+      "id": "workshop-room-a",
+      "name": "Workshop Room A",
+      "capacity": 50,
+      "description": "Hands-on workshops and interactive sessions"
+    },
+    {
+      "id": "community-hub",
+      "name": "Community Hub",
+      "capacity": 100,
+      "description": "Community and networking focused space"
+    }
+  ]
+}

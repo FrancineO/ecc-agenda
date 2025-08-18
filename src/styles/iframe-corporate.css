@@ -1,0 +1,391 @@
+/* Corporate Iframe Styling matching pega.micecon.com */
+
+.iframe-container {
+  font-family: "Arial", "Helvetica", sans-serif;
+  background-color: #ffffff;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.iframe-header {
+  text-align: center;
+  padding: 20px 20px 30px 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.iframe-title {
+  color: #003366;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.5px;
+}
+
+.iframe-subtitle {
+  color: #666666;
+  font-size: 1rem;
+  margin: 0;
+  font-weight: normal;
+}
+
+.agenda-section {
+  padding: 20px;
+}
+
+.agenda-title {
+  color: #003366;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+/* Region Selection */
+.region-selection {
+  margin-bottom: 30px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 20px;
+}
+
+.region-selector-title {
+  color: #003366;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0 0 15px 0;
+}
+
+.region-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.region-button {
+  background-color: #f8f9fa;
+  color: #003366;
+  border: 2px solid #e0e0e0;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 100px;
+}
+
+.region-button:hover {
+  background-color: #e9ecef;
+  border-color: #0066cc;
+  transform: translateY(-1px);
+}
+
+.region-button.active {
+  background-color: #0066cc;
+  color: #ffffff;
+  border-color: #0066cc;
+  box-shadow: 0 2px 4px rgba(0, 102, 204, 0.2);
+}
+
+.region-description {
+  color: #666666;
+  font-size: 0.9rem;
+  margin: 10px 0 0 0;
+  font-style: italic;
+}
+
+/* Tab Navigation */
+.tab-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 0px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  border-bottom: 2px solid rgb(217, 8, 69);
+}
+
+.tab-button {
+  padding: 12px 24px;
+  background-color: #f8f8f8;
+  color: #333333;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-weight: normal;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  text-transform: none;
+  min-width: 180px;
+}
+
+.tab-button:hover {
+  background-color: #e8e8e8;
+}
+
+.tab-button.active {
+  background-color: rgb(217, 8, 69);
+  color: white;
+  /* border-bottom: 3px solid #0066cc; */
+  font-weight: bold;
+}
+
+.tab-button-date {
+  font-size: 13px;
+}
+
+/* Day Info */
+.current-day-info {
+  background-color: #f8f9fa;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid #003366;
+  border: 1px solid #e0e0e0;
+}
+
+.current-day-title {
+  color: #003366;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+}
+
+.current-day-date {
+  color: #666666;
+  font-size: 0.95rem;
+  margin: 0 0 5px 0;
+}
+
+.current-day-theme {
+  color: #333333;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Sessions Container */
+.sessions-container {
+  background-color: #ffffff;
+}
+
+/* Session Cards */
+.session-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 15px;
+  padding: 20px;
+  border-left: 4px solid #003366;
+  transition: all 0.3s ease;
+}
+
+.session-card:hover {
+  transform: translateY(-2px);
+}
+
+.session-card.break-card {
+  background-color: #fffbf0;
+  border-left: 4px solid #ff9800;
+}
+
+/* Common vs Regional Session Styles */
+.session-card.common-session {
+  border-left: 4px solid #0066cc;
+  background-color: #ffffff;
+}
+
+.session-card.regional-session {
+  border-left: 4px solid #28a745;
+  background-color: #f8fff9;
+}
+
+.session-card.common-session:hover {
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+}
+
+.session-card.regional-session:hover {
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.15);
+}
+
+/* Session Type Badge */
+.session-type-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.session-type-badge.common-badge {
+  background-color: #e3f2fd;
+  color: #0066cc;
+  border: 1px solid #bbdefb;
+}
+
+.session-type-badge.regional-badge {
+  background-color: #e8f5e8;
+  color: #28a745;
+  border: 1px solid #c3e6cb;
+}
+
+/* Animation Integration */
+.fadeInUp {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fadeInUpVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animatedCard {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animatedCard:hover {
+  transform: translateY(-8px);
+}
+
+/* Session Content */
+.session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.session-time {
+  font-weight: bold;
+  color: #003366;
+  font-size: 1.1rem;
+}
+
+.session-duration {
+  color: #666666;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.session-title {
+  color: #333333;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+}
+
+.break-card-title {
+  color: #e65100;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+}
+
+.break-card-time {
+  color: #e65100;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.session-speaker {
+  color: #003366;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 10px 0;
+}
+
+.session-description {
+  color: #555555;
+  line-height: 1.5;
+  margin: 0 0 10px 0;
+  font-size: 0.95rem;
+}
+
+.session-room {
+  color: #666666;
+  font-size: 0.9rem;
+  font-weight: normal;
+  margin: 0 0 10px 0;
+}
+
+/* Session Tags */
+.session-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.session-tag {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  font-weight: normal;
+  border: 1px solid #bbdefb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .iframe-container {
+    padding: 0;
+  }
+  
+  .agenda-section {
+    padding: 15px;
+  }
+  
+  .iframe-title {
+    font-size: 1.5rem;
+  }
+  
+  .tab-navigation {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .tab-button {
+    min-width: 200px;
+    margin-bottom: 5px;
+  }
+  
+  .session-header {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .session-duration {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .iframe-header {
+    padding: 15px;
+  }
+  
+  .agenda-section {
+    padding: 10px;
+  }
+  
+  .session-card {
+    padding: 15px;
+  }
+  
+  .iframe-title {
+    font-size: 1.3rem;
+  }
+  
+  .agenda-title {
+    font-size: 1.3rem;
+  }
+}
