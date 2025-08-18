@@ -8,17 +8,24 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    // Get the first available region and day
+    // Get the first available region
     const regions = MultiDayConferenceService.getRegionsList();
     const firstRegion = regions[0];
     
     if (firstRegion) {
+      // Get the current conference day based on today's date
+      const currentDay = MultiDayConferenceService.getCurrentConferenceDay();
       const allDays = MultiDayConferenceService.getAllDays(firstRegion.key);
-      const firstDay = Object.keys(allDays)[0];
       
-      if (firstDay) {
-        // Redirect to the first region and day
-        router.push(`/${firstRegion.key}/${firstDay}`);
+      // If current day exists in the agenda, redirect to it
+      if (currentDay && Object.keys(allDays).includes(currentDay)) {
+        router.push(`/${firstRegion.key}/${currentDay}`);
+      } else {
+        // Fallback: redirect to the first available day
+        const firstDay = Object.keys(allDays)[0];
+        if (firstDay) {
+          router.push(`/${firstRegion.key}/${firstDay}`);
+        }
       }
     }
   }, [router]);

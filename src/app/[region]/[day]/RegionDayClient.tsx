@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import classNames from 'classnames';
 import { MultiDayConferenceService } from '../../../../services/MultiDayConferenceService';
 import AnimatedCardWrapper from '../../../../components/AnimatedCardWrapper';
-import '@/styles/iframe-corporate.css';
+import '@/styles/conference-agenda.css';
 import '@/styles/animations.css';
 
 interface RegionDayClientProps {
@@ -96,49 +96,9 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
   }
 
   return (
-    <div ref={containerRef} className="iframe-container">
-      {/* Header */}
-      <div className="iframe-header">
-        <h1 className="iframe-title">{conferenceInfo.name}</h1>
-        <p className="iframe-subtitle">
-          {new Date(conferenceInfo.startDate).toLocaleDateString('en-US', { 
-            month: 'short', 
-            day: 'numeric' 
-          })} - {new Date(conferenceInfo.endDate).toLocaleDateString('en-US', { 
-            month: 'short', 
-            day: 'numeric', 
-            year: 'numeric' 
-          })} | {conferenceInfo.venue}
-        </p>
-      </div>
-
+    <div ref={containerRef} className="conference-container">
       {/* Agenda Section */}
       <div className="agenda-section">
-        <h2 className="agenda-title">Agenda</h2>
-
-        {/* Region Selection */}
-        <div className="region-selection">
-          <h3 className="region-selector-title">Select Region for Breakouts:</h3>
-          <div className="region-buttons">
-            {regions.map((region) => (
-              <button
-                key={region.key}
-                onClick={() => handleRegionChange(region.key)}
-                className={classNames(
-                  'region-button',
-                  { 'active': activeRegion === region.key }
-                )}
-                title={region.description}
-              >
-                {region.name}
-              </button>
-            ))}
-          </div>
-          <p className="region-description">
-            {currentRegion?.description} - Regional breakout sessions will be shown alongside common sessions
-          </p>
-        </div>
-
         {/* Tab Navigation */}
         <div className="tab-navigation">
           {tabs.map((tab) => (

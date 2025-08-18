@@ -1,6 +1,6 @@
-/* Corporate Iframe Styling matching pega.micecon.com */
+/* Corporate Conference Agenda Styling matching pega.micecon.com */
 
-.iframe-container {
+.conference-container {
   font-family: "Arial", "Helvetica", sans-serif;
   background-color: #ffffff;
   min-height: 100vh;
@@ -9,26 +9,27 @@
   box-sizing: border-box;
 }
 
-.iframe-header {
+.conference-header {
+  background: linear-gradient(rgba(0,31,95,.85),rgba(0,31,95,.85) 1%,rgba(16,165,172,.85) 60%);
+  color: white;
   text-align: center;
-  padding: 20px 20px 30px 20px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
+  padding: 30px 20px;
+  margin-bottom: 0px;
 }
 
-.iframe-title {
-  color: #003366;
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin: 0 0 8px 0;
-  letter-spacing: 0.5px;
-}
-
-.iframe-subtitle {
-  color: #666666;
-  font-size: 1rem;
+.conference-title {
+  font-size: 2.5em;
+  font-weight: 700;
   margin: 0;
-  font-weight: normal;
+  margin-bottom: 10px;
+}
+
+.conference-subtitle {
+  font-size: 1.2em;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 .agenda-section {
@@ -335,8 +336,8 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .iframe-container {
+@media (max-width: 579px) {
+  .conference-container {
     padding: 0;
   }
   
@@ -344,18 +345,12 @@
     padding: 15px;
   }
   
-  .iframe-title {
+  .conference-title {
     font-size: 1.5rem;
   }
   
-  .tab-navigation {
-    flex-direction: column;
-    align-items: center;
-  }
-  
   .tab-button {
-    min-width: 200px;
-    margin-bottom: 5px;
+    min-width: 130px;
   }
   
   .session-header {
@@ -369,7 +364,7 @@
 }
 
 @media (max-width: 480px) {
-  .iframe-header {
+  .conference-header {
     padding: 15px;
   }
   
@@ -381,7 +376,7 @@
     padding: 15px;
   }
   
-  .iframe-title {
+  .conference-title {
     font-size: 1.3rem;
   }
   

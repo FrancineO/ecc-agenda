@@ -26,14 +26,21 @@ export default async function RegionPage({ params }: RegionPageProps) {
     redirect('/');
   }
 
-  // Get the first day of this region and redirect
+  // Get the current conference day based on today's date
+  const currentDay = MultiDayConferenceService.getCurrentConferenceDay();
   const allDays = MultiDayConferenceService.getAllDays(region);
+  
+  // If current day exists in the agenda, redirect to it
+  if (currentDay && Object.keys(allDays).includes(currentDay)) {
+    redirect(`/${region}/${currentDay}`);
+  }
+  
+  // Fallback: redirect to the first available day
   const firstDay = Object.keys(allDays)[0];
-
   if (firstDay) {
     redirect(`/${region}/${firstDay}`);
   }
 
-  // Fallback redirect to home
+  // Final fallback redirect to home
   redirect('/');
 }

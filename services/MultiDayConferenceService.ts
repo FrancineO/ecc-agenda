@@ -224,4 +224,33 @@ export class MultiDayConferenceService {
       description: regionData.description
     }));
   }
+
+  static getCurrentConferenceDay(): string | null {
+    const today = new Date();
+    const conferenceInfo = this.getConferenceInfo();
+    
+    // Conference dates
+    const startDate = new Date(conferenceInfo.startDate);
+    const endDate = new Date(conferenceInfo.endDate);
+    
+    // If today is before the conference, return the first day
+    if (today < startDate) {
+      return 'thursday';
+    }
+    
+    // If today is after the conference, return the last day
+    if (today > endDate) {
+      return 'saturday';
+    }
+
+    // If today is during the conference, determine which day of the week it is
+    const dayOfWeek = today.getDay();
+
+    switch (dayOfWeek) {
+      case 3: return 'thursday';  // November 20
+      case 4: return 'friday';    // November 21
+      case 5: return 'saturday';  // November 22
+      default: return 'thursday'; // Fallback to first day
+    }
+  }
 }

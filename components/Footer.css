@@ -1,0 +1,28 @@
+/* Footer.css */
+.conference-footer {
+  background: #274178;
+  color: #ffffff;
+  margin-top: auto;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Footer Attribution */
+.footer-attribution {
+  text-align: center;
+  padding: 15px 20px;
+  border-top: 1px solid #274178;
+}
+
+.footer-powered {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-powered small {
+  font-size: 0.8em;
+}

@@ -5,11 +5,15 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true,
-    domains: ['images.unsplash.com'],
+    domains: ['images.unsplash.com', 'pega.micecon.com'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'pega.micecon.com',
       },
     ],
   },

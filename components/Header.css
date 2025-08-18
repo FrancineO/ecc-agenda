@@ -1,0 +1,169 @@
+.conference-header {
+  background: linear-gradient(rgba(0, 31, 95, 0.85) 0%, rgba(0, 31, 95, 0.85) 1%, rgba(16, 165, 172, 0.85) 60%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1000;
+}
+
+.header-container {
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  gap: 20px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.pega-logo-img {
+  height: auto;
+  max-height: 40px;
+  width: auto;
+}
+
+.conference-title {
+  font-size: 24px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.conference-title:hover {
+  opacity: 0.8;
+}
+
+/* Region Selector */
+.header-region-selector {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.region-selector-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  white-space: nowrap;
+}
+
+.region-selector-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.region-selector-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.region-selector-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.region-selector-button.active {
+  background: rgba(0, 96, 209, 0.3);
+  border-color: rgba(0, 96, 209, 0.6);
+  color: white;
+}
+
+/* Mobile Dropdown - Hidden by default */
+.region-selector-dropdown {
+  display: none;
+}
+
+.region-dropdown {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.region-dropdown:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.region-dropdown option {
+  background: #2C3968;
+  color: white;
+  padding: 8px;
+}
+
+/* Desktop - show buttons, hide dropdown */
+@media (min-width: 769px) {
+  .region-selector-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .region-selector-dropdown {
+    display: none;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 15px;
+  }
+  
+  .header-top {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px 0;
+  }
+  
+  .logo-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .pega-logo-img {
+    max-height: 32px;
+  }
+  
+  .conference-title {
+    font-size: 20px;
+  }
+  
+  .header-region-selector {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  /* Hide buttons on mobile, show dropdown */
+  .region-selector-buttons {
+    display: none;
+  }
+  
+  .region-selector-dropdown {
+    display: block;
+  }
+}
