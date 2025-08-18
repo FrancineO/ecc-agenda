@@ -58,6 +58,21 @@ export interface ConferenceInfo {
 }
 
 export class MultiDayConferenceService {
+  // Helper function to convert time string to minutes for proper sorting
+  private static timeToMinutes(timeStr: string): number {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    return hours * 60 + minutes;
+  }
+
+  // Helper function to sort agenda items by time
+  private static sortAgendaByTime(agenda: AgendaItem[]): AgendaItem[] {
+    return agenda.sort((a, b) => {
+      const timeA = this.timeToMinutes(a.time);
+      const timeB = this.timeToMinutes(b.time);
+      return timeA - timeB;
+    });
+  }
+
   static getConferenceInfo(): ConferenceInfo {
     return multiDayData.conference;
   }
@@ -92,20 +107,31 @@ export class MultiDayConferenceService {
     if (regionData && regionData.days) {
       Object.entries(regionData.days).forEach(([dayKey, regionDayData]) => {
         if (mergedDays[dayKey]) {
-          // Merge regional agenda with common agenda
+          // Merge regional agenda with common agenda and sort by time
+          const combinedAgenda = [
+            ...mergedDays[dayKey].agenda,
+            ...regionDayData.agenda
+          ];
           mergedDays[dayKey] = {
             ...mergedDays[dayKey],
-            agenda: [
-              ...mergedDays[dayKey].agenda,
-              ...regionDayData.agenda
-            ].sort((a, b) => a.time.localeCompare(b.time)) // Sort by time
+            agenda: this.sortAgendaByTime(combinedAgenda)
           };
         } else {
           // Day exists only in regional data
-          mergedDays[dayKey] = { ...regionDayData };
+          mergedDays[dayKey] = {
+            ...regionDayData,
+            agenda: this.sortAgendaByTime(regionDayData.agenda)
+          };
         }
       });
     }
+
+    // Sort common-only days as well
+    Object.keys(mergedDays).forEach(dayKey => {
+      if (!regionData?.days?.[dayKey]) {
+        mergedDays[dayKey].agenda = this.sortAgendaByTime(mergedDays[dayKey].agenda);
+      }
+    });
 
     return mergedDays;
   }
@@ -117,7 +143,8 @@ export class MultiDayConferenceService {
 
   static getAgendaForDay(dayKey: string, regionKey?: string): AgendaItem[] {
     const dayData = this.getDayData(dayKey, regionKey);
-    return dayData ? dayData.agenda as AgendaItem[] : [];
+    const agenda = dayData ? dayData.agenda as AgendaItem[] : [];
+    return this.sortAgendaByTime(agenda);
   }
 
   static getCommonSessions(): { [key: string]: DayData } {
@@ -166,7 +193,11 @@ export class MultiDayConferenceService {
     
     return Object.entries(timeSlots)
       .map(([time, items]) => ({ time, items }))
-      .sort((a, b) => a.time.localeCompare(b.time));
+      .sort((a, b) => {
+        const timeA = this.timeToMinutes(a.time);
+        const timeB = this.timeToMinutes(b.time);
+        return timeA - timeB;
+      });
   }
 
   static searchAgenda(query: string, regionKey?: string): { day: string; items: AgendaItem[] }[] {
