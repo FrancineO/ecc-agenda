@@ -121,7 +121,12 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
         {/* Current Day Info */}
         <div className="current-day-info">
           <h2 className="current-day-title">{currentTab?.label}</h2>
-          <p className="current-day-date">{currentTab?.dateFormatted}</p>
+          <div className="current-region-info">
+            <strong>{currentRegion?.name}</strong>
+            {currentRegion?.description && (
+              <span className="current-region-description"> — {currentRegion.description}</span>
+            )}
+          </div>
           <p className="current-day-theme">{currentTab?.theme}</p>
         </div>
 
