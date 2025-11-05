@@ -150,21 +150,6 @@ export class UserDatabaseService {
     }
   }
 
-
-
-  async createUser(userData: User): Promise<User | null> {
-    try {
-      await this.connect();
-      if (!this.users) throw new Error('Database connection failed');
-
-      const result = await this.users.insertOne(userData);
-      return { ...userData, _id: result.insertedId } as User;
-    } catch (error) {
-      console.error('Database error in createUser:', error);
-      return null;
-    }
-  }
-
   async updateUser(emailOrPegaId: string, updateData: Partial<User>): Promise<User | null> {
     try {
       await this.connect();
@@ -175,15 +160,27 @@ export class UserDatabaseService {
       const result = await this.users.findOneAndUpdate(
         {
           $or: [
-            { email: { $regex: new RegExp(`^${trimmedInput}$`, 'i') } },
-            { pegaId: { $regex: new RegExp(`^${trimmedInput}$`, 'i') } }
+            { "Email": { $regex: new RegExp(`^${trimmedInput}$`, 'i') } },
+            { "Pega ID": { $regex: new RegExp(`^${trimmedInput}$`, 'i') } }
           ]
         },
         { $set: updateData },
         { returnDocument: 'after' }
       );
       
-      return result;
+      if (result) {
+        // Transform the document to match our interface
+        return {
+          pegaId: result["Pega ID"] || '',
+          email: result["Email"] || '',
+          breakoutGroup: this.getBreakoutGroup(result["Delivery Circle Breakout"]),
+          regionalBreakout: result["Regional Breakout"] || '',
+          preferredName: result["Preferred Name"] || '',
+          lastName: result["Last Name"] || ''
+        };
+      }
+      
+      return null;
     } catch (error) {
       console.error('Database error in updateUser:', error);
       return null;
