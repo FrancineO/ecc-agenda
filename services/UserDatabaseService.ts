@@ -1,7 +1,6 @@
 import clientPromise from '../lib/mongodb';
 import { Db, Collection } from 'mongodb';
-import usersData from '../data/users.json';
-import { getBreakoutGroupDisplayName, getBreakoutGroupRoute } from '../utils/breakoutGroupUtils';
+import { getBreakoutGroupRoute } from '../utils/breakoutGroupUtils';
 
 export interface User {
   pegaId: string;
@@ -84,7 +83,7 @@ export class UserDatabaseService {
       return null;
     } catch (error) {
       console.error('Database error in findUserByEmail:', error);
-      return this.findUserFromJsonFallback(email);
+      return null;
     }
   }
 
@@ -113,14 +112,14 @@ export class UserDatabaseService {
       return null;
     } catch (error) {
       console.error('Database error in findUserByPegaId:', error);
-      return this.findUserFromJsonFallback(pegaId);
+      return null;
     }
   }
 
   async findUser(emailOrPegaId: string): Promise<User | null> {
     try {
       await this.connect();
-      if (!this.users) return this.findUserFromJsonFallback(emailOrPegaId);
+      if (!this.users) return null;
 
       const trimmedInput = emailOrPegaId.trim();
       
@@ -147,28 +146,11 @@ export class UserDatabaseService {
       return null;
     } catch (error) {
       console.error('Database error in findUser:', error);
-      return this.findUserFromJsonFallback(emailOrPegaId);
+      return null;
     }
   }
 
-  // Fallback to JSON data if MongoDB is unavailable
-  private findUserFromJsonFallback(input: string): User | null {
-    const normalizedInput = input.toLowerCase().trim();
-    
-    // Try to find by email first
-    const userByEmail = usersData.users.find(user => 
-      user.email.toLowerCase() === normalizedInput
-    );
-    
-    if (userByEmail) return userByEmail;
-    
-    // Try to find by Pega ID (case insensitive)  
-    const userByPegaId = usersData.users.find(user => 
-      user.pegaId.toLowerCase() === normalizedInput
-    );
-    
-    return userByPegaId || null;
-  }
+
 
   async createUser(userData: User): Promise<User | null> {
     try {
@@ -211,35 +193,25 @@ export class UserDatabaseService {
   async getAllUsers(): Promise<User[]> {
     try {
       await this.connect();
-      if (!this.users) return usersData.users;
+      if (!this.users) return [];
 
-      const users = await this.users.find({}).toArray();
-      return users;
+      const mongoUsers = await this.users.find({}).toArray();
+      
+      // Transform MongoDB documents to User interface
+      return mongoUsers.map(doc => ({
+        pegaId: doc["Pega ID"] || '',
+        email: doc["Email"] || '',
+        breakoutGroup: this.getBreakoutGroup(doc["Delivery Circle Breakout"]),
+        regionalBreakout: doc["Regional Breakout"] || '',
+        preferredName: doc["Preferred Name"] || '',
+        lastName: doc["Last Name"] || ''
+      }));
     } catch (error) {
       console.error('Database error in getAllUsers:', error);
-      return usersData.users;
+      return [];
     }
   }
 
-  // Method to migrate data from JSON file to MongoDB
-  async migrateFromJson(users: User[]): Promise<boolean> {
-    try {
-      await this.connect();
-      if (!this.users) throw new Error('Database connection failed');
-
-      // Clear existing data and insert new users
-      await this.users.deleteMany({});
-      if (users.length > 0) {
-        await this.users.insertMany(users);
-      }
-      
-      console.log(`✅ Migrated ${users.length} users to MongoDB`);
-      return true;
-    } catch (error) {
-      console.error('❌ Migration failed:', error);
-      return false;
-    }
-  }
 
   // Check if MongoDB is connected and has data
   async isConnected(): Promise<boolean> {

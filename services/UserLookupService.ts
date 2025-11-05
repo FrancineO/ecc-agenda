@@ -1,32 +1,6 @@
 import { userDbService, User } from './UserDatabaseService';
-import usersData from '../data/users.json';
 
 export class UserLookupService {
-  private static isInitialized = false;
-
-  /**
-   * Initialize the database with data from JSON file if needed
-   */
-  private static async initialize(): Promise<void> {
-    if (this.isInitialized) return;
-    
-    try {
-      // Check if users exist in database
-      const existingUsers = await userDbService.getAllUsers();
-      
-      // If no users exist, migrate from JSON
-      if (existingUsers.length === 0) {
-        console.log('No users found in database. Migrating from JSON...');
-        await userDbService.migrateFromJson(usersData.users);
-      }
-      
-      this.isInitialized = true;
-    } catch (error) {
-      console.error('Failed to initialize UserLookupService:', error);
-      // Fall back to using JSON data directly
-      this.isInitialized = false;
-    }
-  }
 
   /**
    * Find a user by their email address or Pega ID
@@ -37,36 +11,11 @@ export class UserLookupService {
     if (!input) return null;
     
     try {
-      await this.initialize();
       return await userDbService.findUser(input);
     } catch (error) {
-      console.error('Database error, falling back to JSON:', error);
-      // Fallback to JSON data
-      return this.findUserFromJson(input);
+      console.error('Database error in UserLookupService:', error);
+      return null;
     }
-  }
-
-  /**
-   * Fallback method to find user from JSON data
-   */
-  private static findUserFromJson(input: string): User | null {
-    if (!input) return null;
-    
-    const normalizedInput = input.toLowerCase().trim();
-    
-    // Try to find by email first
-    const userByEmail = usersData.users.find(user => 
-      user.email.toLowerCase() === normalizedInput
-    );
-    
-    if (userByEmail) return userByEmail;
-    
-    // Try to find by Pega ID (case insensitive)  
-    const userByPegaId = usersData.users.find(user => 
-      user.pegaId.toLowerCase() === normalizedInput
-    );
-    
-    return userByPegaId || null;
   }
 
   /**
