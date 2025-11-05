@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "pegaId": "JDOE",
+      "email": "john.doe@pega.com",
+      "breakoutGroup": "delivery-circle-1",
+      "preferredName": "John",
+      "lastName": "Doe",
+      "regionalBreakout": "West"
+    }
+  ]
+}
