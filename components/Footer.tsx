@@ -9,7 +9,7 @@ export default function Footer() {
         {/* Footer Attribution */}
         <div className="footer-attribution">
           <p className="footer-powered">
-            <small>Powered by IXD with ♡</small>
+            <small>PEGA ECC 2025 • Prague • Nov 20-22 | Powered by IXD with ♡</small>
           </p>
         </div>
       </div>

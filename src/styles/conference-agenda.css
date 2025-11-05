@@ -3,7 +3,6 @@
 .conference-container {
   font-family: "Arial", "Helvetica", sans-serif;
   background-color: #ffffff;
-  min-height: 100vh;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -106,8 +105,16 @@
   justify-content: center;
   gap: 0px;
   margin-bottom: 30px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   border-bottom: 2px solid rgb(217, 8, 69);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 100;
+  padding: 15px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .tab-button {
@@ -122,6 +129,7 @@
   transition: all 0.3s ease;
   text-transform: none;
   min-width: 180px;
+  flex-shrink: 0;
 }
 
 .tab-button:hover {
@@ -140,7 +148,7 @@
 }
 
 /* Day Info */
-.current-day-info {
+.current-user-info {
   background-color: #f8f9fa;
   padding: 15px 20px;
   margin-bottom: 20px;
@@ -148,20 +156,56 @@
   border: 1px solid #e0e0e0;
 }
 
+.current-user-name {
+  color: #003366;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+}
+
+.user-assignment-info {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.breakout-group-info,
+.region-info {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.breakout-group-info strong,
+.region-info strong {
+  color: #003366;
+  font-weight: 600;
+}
+
+.current-day-info {
+  margin-top: 0;
+}
+
 .current-day-title {
+  color: #003366;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+}
+
+.current-user-title {
   color: #003366;
   font-size: 1.3rem;
   font-weight: bold;
   margin: 0 0 5px 0;
 }
 
-.current-day-date {
+.current-user-date {
   color: #666666;
   font-size: 0.95rem;
   margin: 0 0 5px 0;
 }
 
-.current-day-theme {
+.current-user-theme {
   color: #333333;
   font-size: 1rem;
   font-weight: 500;
@@ -183,15 +227,6 @@
   transition: all 0.3s ease;
 }
 
-.session-card:hover {
-  transform: translateY(-2px);
-}
-
-.session-card.break-card {
-  background-color: #fffbf0;
-  border-left: 4px solid #ff9800;
-}
-
 /* Common vs Regional Session Styles */
 .session-card.common-session {
   border-left: 4px solid #0066cc;
@@ -203,24 +238,21 @@
   background-color: #f8fff9;
 }
 
-.session-card.common-session:hover {
-  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
-}
-
-.session-card.regional-session:hover {
-  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.15);
+.session-card.break-card {
+  background-color: #fffbf0;
+  border-left: 4px solid #ff9800;
 }
 
 /* Session Type Badge */
 .session-type-badge {
   display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  margin-bottom: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  margin-left: 0;
+  text-transform: none;
+  letter-spacing: 0px;
 }
 
 .session-type-badge.common-badge {
@@ -251,16 +283,19 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.animatedCard:hover {
-  transform: translateY(-8px);
-}
-
 /* Session Content */
-.session-header {
+.session-top-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.session-top-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .session-time {
@@ -273,6 +308,7 @@
   color: #666666;
   font-size: 0.9rem;
   font-style: italic;
+  font-weight: 500;
 }
 
 .session-title {
@@ -283,11 +319,18 @@
   line-height: 1.4;
 }
 
+.session-region {
+  color: #666666;
+  font-size: 0.9rem;
+  font-weight: normal;
+  font-style: italic;
+}
+
 .break-card-title {
   color: #e65100;
   font-size: 1.2rem;
   font-weight: bold;
-  margin: 0 0 8px 0;
+  margin: 0;
 }
 
 .break-card-time {
@@ -342,45 +385,333 @@
   }
   
   .agenda-section {
-    padding: 15px;
+    padding: 12px;
+  }
+  
+  .agenda-title {
+    font-size: 1.1rem;
+    margin: 0 0 12px 0;
   }
   
   .conference-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+  }
+  
+  .tab-navigation {
+    margin-bottom: 20px;
+    padding: 10px 0;
   }
   
   .tab-button {
-    min-width: 130px;
+    min-width: 110px;
+    padding: 8px 12px;
+    font-size: 13px;
   }
   
-  .session-header {
+  .tab-button-date {
+    font-size: 11px;
+  }
+  
+  .current-user-info {
+    padding: 12px 15px;
+    margin-bottom: 15px;
+  }
+  
+  .current-user-name {
+    font-size: 1.2rem;
+  }
+  
+  .user-assignment-info {
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
+  }
+  
+  .breakout-group-info,
+  .region-info {
+    font-size: 0.85rem;
+  }
+  
+  .current-day-title {
+    font-size: 1.05rem;
+  }
+  
+  .current-user-title {
+    font-size: 1.1rem;
+  }
+  
+  .current-day-theme {
+    font-size: 0.85rem;
+  }
+  
+  .current-region-info {
+    font-size: 0.9rem;
+  }
+  
+  .session-top-row {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .session-top-right {
+    align-self: flex-start;
   }
   
   .session-duration {
     align-self: flex-start;
   }
+  
+  .session-title {
+    font-size: 1rem;
+  }
+  
+  .session-speaker {
+    font-size: 0.85rem;
+  }
+  
+  .session-description {
+    font-size: 0.8rem;
+  }
+  
+  .session-time {
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  
+  .session-duration {
+    font-size: 0.8rem;
+  }
+  
+  .session-top-right {
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  
+  .session-type-badge {
+    font-size: 0.55rem;
+    padding: 1px 3px;
+    margin-left: 0;
+  }
 }
 
 @media (max-width: 480px) {
   .conference-header {
-    padding: 15px;
-  }
-  
-  .agenda-section {
     padding: 10px;
   }
   
-  .session-card {
-    padding: 15px;
-  }
-  
-  .conference-title {
-    font-size: 1.3rem;
+  .agenda-section {
+    padding: 8px;
   }
   
   .agenda-title {
-    font-size: 1.3rem;
+    font-size: 1rem;
+    margin: 0 0 10px 0;
+  }
+  
+  .tab-navigation {
+    margin-bottom: 15px;
+  }
+  
+  .tab-button {
+    min-width: 90px;
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+  
+  .tab-button-date {
+    font-size: 10px;
+  }
+  
+  .current-user-info {
+    padding: 10px 12px;
+    margin-bottom: 12px;
+  }
+  
+  .current-day-title {
+    font-size: 1rem;
+    margin: 0 0 3px 0;
+  }
+  
+  .current-day-theme {
+    font-size: 0.8rem;
+  }
+  
+  .current-region-info {
+    font-size: 0.85rem;
+  }
+  
+  .session-card {
+    padding: 10px;
+    margin: 6px 0;
+  }
+  
+  .session-title {
+    font-size: 0.9rem;
+  }
+  
+  .session-speaker {
+    font-size: 0.8rem;
+  }
+  
+  .session-description {
+    font-size: 0.75rem;
+  }
+  
+  .session-top-row {
+    gap: 6px;
+  }
+  
+  .session-time {
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  
+  .session-duration {
+    font-size: 0.7rem;
+  }
+  
+  .break-card-title {
+    font-size: 0.9rem;
+  }
+  
+  .break-card-time {
+    font-size: 0.8rem;
+  }
+  
+  .conference-title {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+  }
+}
+
+/* Extra small screens - very small smartphones */
+@media (max-width: 360px) {
+  .tab-button {
+    min-width: 75px;
+    padding: 5px 6px;
+    font-size: 11px;
+  }
+  
+  .tab-button-date {
+    font-size: 9px;
+  }
+  
+  .agenda-title {
+    font-size: 0.9rem;
+  }
+  
+  .current-day-title {
+    font-size: 0.9rem;
+  }
+  
+  .session-title {
+    font-size: 0.85rem;
+  }
+  
+  .session-speaker {
+    font-size: 0.75rem;
+  }
+  
+  .session-description {
+    font-size: 0.7rem;
+  }
+  
+  .session-top-row {
+    gap: 4px;
+  }
+  
+  .session-time {
+    font-size: 0.8rem;
+  }
+  
+  .session-duration {
+    font-size: 0.65rem;
+  }
+  
+  .session-top-right {
+    gap: 2px;
+    flex-shrink: 0;
+  }
+  
+  .session-type-badge {
+    font-size: 0.45rem;
+    padding: 1px 2px;
+    margin-left: 0;
+  }
+}
+
+/* Footer Styles */
+.conference-footer {
+  background: linear-gradient(135deg, #003366 0%, #004080 50%, #0066cc 100%);
+  color: white;
+  flex-shrink: 0;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.footer-event {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.footer-location {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+}
+
+.footer-brand {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+/* Mobile Footer Styles */
+@media (max-width: 579px) {
+  .conference-footer {
+    padding: 10px 15px;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+  
+  .footer-info {
+    align-items: center;
+  }
+  
+  .footer-event {
+    font-size: 13px;
+  }
+  
+  .footer-location {
+    font-size: 11px;
+  }
+  
+  .footer-brand {
+    font-size: 16px;
   }
 }

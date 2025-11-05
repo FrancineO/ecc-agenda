@@ -13,59 +13,66 @@ interface HeaderProps {
 export default function Header({ currentRegion, currentDay }: HeaderProps) {
   const router = useRouter();
   
-  // Get regions list
-  const regions = MultiDayConferenceService.getRegionsList();
+  // // Get regions list
+  // const regions = MultiDayConferenceService.getBreakoutGroupsList();
   
-  const handleRegionChange = (regionKey: string) => {
-    if (currentDay) {
-      router.push(`/${regionKey}/${currentDay}`);
-    } else {
-      router.push(`/${regionKey}`);
-    }
-  };
+  // const handleBreakoutGroupChange = (breakoutGroupKey: string) => {
+  //   if (currentDay) {
+  //     router.push(`/${breakoutGroupKey}/${currentDay}`);
+  //   } else {
+  //     router.push(`/${breakoutGroupKey}`);
+  //   }
+  // };
 
   return (
     <header className="conference-header">
+      {currentRegion && (
       <div className="header-container">
-        {/* Header with Logo, Title, and Region Selector */}
+        {/* Logo and Title Row */}
         <div className="header-top">
           <div className="logo-section">
+            {/* Desktop Logo */}
             <Image 
               src="https://pega.micecon.com/uploads/images/logo/pega-logo.png"
               alt="PEGA Logo"
               width={120}
               height={40}
-              className="pega-logo-img"
+              className="pega-logo-img desktop-logo"
+            />
+            {/* Mobile Logo */}
+            <Image 
+              src="https://productleadersforum.org/wp-content/uploads/2024/02/pega_logo-e1707133201854.png"
+              alt="PEGA Logo"
+              width={120}
+              height={40}
+              className="pega-logo-img mobile-logo"
             />
             <div className="conference-title">
               ECC 2025 Agenda
             </div>
           </div>
           
-          {/* Region Selector */}
-          {currentRegion && (
-            <div className="header-region-selector">
+          
+            <div className="header-actions">
+              <button 
+                onClick={() => router.push('/')}
+                className="change-user-button"
+                title="Change User"
+              >
+                Change User
+              </button>
+            </div>
+          
+          
+          {/* Mobile Region Selector - Only visible on mobile */}
+          {/* {currentRegion && (
+            <div className="header-region-selector mobile-only">
               <label className="region-selector-label">Region:</label>
               
-              {/* Desktop Buttons */}
-              <div className="region-selector-buttons">
-                {regions.map((region) => (
-                  <button
-                    key={region.key}
-                    onClick={() => handleRegionChange(region.key)}
-                    className={`region-selector-button ${currentRegion === region.key ? 'active' : ''}`}
-                    title={region.description}
-                  >
-                    {region.name}
-                  </button>
-                ))}
-              </div>
-              
-              {/* Mobile Dropdown */}
               <div className="region-selector-dropdown">
                 <select
                   value={currentRegion}
-                  onChange={(e) => handleRegionChange(e.target.value)}
+                  onChange={(e) => handleBreakoutGroupChange(e.target.value)}
                   className="region-dropdown"
                 >
                   {regions.map((region) => (
@@ -76,9 +83,32 @@ export default function Header({ currentRegion, currentDay }: HeaderProps) {
                 </select>
               </div>
             </div>
-          )}
+          )} */}
         </div>
+        
+        {/* Desktop Region Selector Row - Only visible on desktop */}
+        {/* {currentRegion && (
+          <div className="header-region-row desktop-only">
+            <div className="header-region-selector">
+              <label className="region-selector-label">Breakout Group:</label>
+              
+              <div className="region-selector-buttons">
+                {regions.map((region) => (
+                  <button
+                    key={region.key}
+                    onClick={() => handleBreakoutGroupChange(region.key)}
+                    className={`region-selector-button ${currentRegion === region.key ? 'active' : ''}`}
+                    title={region.description}
+                  >
+                    {region.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )} */}
       </div>
+      )}
     </header>
-  );
+    )
 }

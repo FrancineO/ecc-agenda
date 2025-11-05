@@ -24,7 +24,7 @@ export interface DayData {
   agenda: AgendaItem[];
 }
 
-export interface RegionData {
+export interface BreakoutGroupData {
   name: string;
   description: string;
   days: { [key: string]: DayData };
@@ -77,25 +77,25 @@ export class MultiDayConferenceService {
     return multiDayData.conference;
   }
 
-  static getAllRegions(): { [key: string]: RegionData } {
-    return multiDayData.regions as { [key: string]: RegionData };
+  static getAllBreakoutGroups(): { [key: string]: BreakoutGroupData } {
+    return multiDayData.breakoutGroups as { [key: string]: BreakoutGroupData };
   }
 
-  static getRegionData(regionKey: string): RegionData | null {
-    const regions = multiDayData.regions as { [key: string]: RegionData };
-    return regions[regionKey] || null;
+  static getBreakoutGroupData(breakoutGroupKey: string): BreakoutGroupData | null {
+    const breakoutGroups = multiDayData.breakoutGroups as { [key: string]: BreakoutGroupData };
+    return breakoutGroups[breakoutGroupKey] || null;
   }
 
-  static getAllDays(regionKey?: string): { [key: string]: DayData } {
+  static getAllDays(breakoutGroupKey?: string): { [key: string]: DayData } {
     // Get common sessions for all days
     const commonDays = multiDayData.commonSessions as { [key: string]: DayData };
     
-    if (!regionKey) {
+    if (!breakoutGroupKey) {
       return commonDays;
     }
 
-    // Merge common sessions with regional sessions
-    const regionData = this.getRegionData(regionKey);
+    // Merge common sessions with breakout group sessions
+    const breakoutGroupData = this.getBreakoutGroupData(breakoutGroupKey);
     const mergedDays: { [key: string]: DayData } = {};
 
     // Start with common sessions
@@ -103,24 +103,24 @@ export class MultiDayConferenceService {
       mergedDays[dayKey] = { ...dayData };
     });
 
-    // Add regional sessions if they exist
-    if (regionData && regionData.days) {
-      Object.entries(regionData.days).forEach(([dayKey, regionDayData]) => {
+    // Add breakout group sessions if they exist
+    if (breakoutGroupData && breakoutGroupData.days) {
+      Object.entries(breakoutGroupData.days).forEach(([dayKey, breakoutGroupDayData]) => {
         if (mergedDays[dayKey]) {
-          // Merge regional agenda with common agenda and sort by time
+          // Merge breakout group agenda with common agenda and sort by time
           const combinedAgenda = [
             ...mergedDays[dayKey].agenda,
-            ...regionDayData.agenda
+            ...breakoutGroupDayData.agenda
           ];
           mergedDays[dayKey] = {
             ...mergedDays[dayKey],
             agenda: this.sortAgendaByTime(combinedAgenda)
           };
         } else {
-          // Day exists only in regional data
+          // Day exists only in breakout group data
           mergedDays[dayKey] = {
-            ...regionDayData,
-            agenda: this.sortAgendaByTime(regionDayData.agenda)
+            ...breakoutGroupDayData,
+            agenda: this.sortAgendaByTime(breakoutGroupDayData.agenda)
           };
         }
       });
@@ -128,7 +128,7 @@ export class MultiDayConferenceService {
 
     // Sort common-only days as well
     Object.keys(mergedDays).forEach(dayKey => {
-      if (!regionData?.days?.[dayKey]) {
+      if (!breakoutGroupData?.days?.[dayKey]) {
         mergedDays[dayKey].agenda = this.sortAgendaByTime(mergedDays[dayKey].agenda);
       }
     });
@@ -136,13 +136,13 @@ export class MultiDayConferenceService {
     return mergedDays;
   }
 
-  static getDayData(dayKey: string, regionKey?: string): DayData | null {
-    const days = this.getAllDays(regionKey);
+  static getDayData(dayKey: string, breakoutGroupKey?: string): DayData | null {
+    const days = this.getAllDays(breakoutGroupKey);
     return days[dayKey] || null;
   }
 
-  static getAgendaForDay(dayKey: string, regionKey?: string): AgendaItem[] {
-    const dayData = this.getDayData(dayKey, regionKey);
+  static getAgendaForDay(dayKey: string, breakoutGroupKey?: string): AgendaItem[] {
+    const dayData = this.getDayData(dayKey, breakoutGroupKey);
     const agenda = dayData ? dayData.agenda as AgendaItem[] : [];
     return this.sortAgendaByTime(agenda);
   }
@@ -151,9 +151,9 @@ export class MultiDayConferenceService {
     return multiDayData.commonSessions as { [key: string]: DayData };
   }
 
-  static getRegionalSessions(regionKey: string): { [key: string]: DayData } {
-    const regionData = this.getRegionData(regionKey);
-    return regionData ? regionData.days : {};
+  static getBreakoutGroupSessions(breakoutGroupKey: string): { [key: string]: DayData } {
+    const breakoutGroupData = this.getBreakoutGroupData(breakoutGroupKey);
+    return breakoutGroupData ? breakoutGroupData.days : {};
   }
 
   static getAllSpeakers(): Speaker[] {
@@ -172,16 +172,16 @@ export class MultiDayConferenceService {
     return multiDayData.rooms.find(room => room.id === roomId);
   }
 
-  static getFeaturedSessionsForDay(dayKey: string, regionKey?: string): AgendaItem[] {
-    const agenda = this.getAgendaForDay(dayKey, regionKey);
+  static getFeaturedSessionsForDay(dayKey: string, breakoutGroupKey?: string): AgendaItem[] {
+    const agenda = this.getAgendaForDay(dayKey, breakoutGroupKey);
     return agenda.filter(item => 
       !item.isBreak && 
       (item.type === 'keynote' || item.tags.includes('Featured'))
     ).slice(0, 3);
   }
 
-  static getAgendaByTimeSlotsForDay(dayKey: string, regionKey?: string): { time: string; items: AgendaItem[] }[] {
-    const agenda = this.getAgendaForDay(dayKey, regionKey);
+  static getAgendaByTimeSlotsForDay(dayKey: string, breakoutGroupKey?: string): { time: string; items: AgendaItem[] }[] {
+    const agenda = this.getAgendaForDay(dayKey, breakoutGroupKey);
     const timeSlots: { [key: string]: AgendaItem[] } = {};
     
     agenda.forEach(item => {
@@ -200,11 +200,11 @@ export class MultiDayConferenceService {
       });
   }
 
-  static searchAgenda(query: string, regionKey?: string): { day: string; items: AgendaItem[] }[] {
+  static searchAgenda(query: string, breakoutGroupKey?: string): { day: string; items: AgendaItem[] }[] {
     const results: { day: string; items: AgendaItem[] }[] = [];
     const searchTerm = query.toLowerCase();
     
-    const days = this.getAllDays(regionKey);
+    const days = this.getAllDays(breakoutGroupKey);
     Object.entries(days).forEach(([dayKey, dayData]) => {
       const matchingItems = (dayData.agenda as AgendaItem[]).filter(item =>
         item.title.toLowerCase().includes(searchTerm) ||
@@ -221,10 +221,10 @@ export class MultiDayConferenceService {
     return results;
   }
 
-  static getSessionsByTag(tag: string, regionKey?: string): { day: string; items: AgendaItem[] }[] {
+  static getSessionsByTag(tag: string, breakoutGroupKey?: string): { day: string; items: AgendaItem[] }[] {
     const results: { day: string; items: AgendaItem[] }[] = [];
     
-    const days = this.getAllDays(regionKey);
+    const days = this.getAllDays(breakoutGroupKey);
     Object.entries(days).forEach(([dayKey, dayData]) => {
       const taggedItems = (dayData.agenda as AgendaItem[]).filter(item =>
         item.tags.some(itemTag => itemTag.toLowerCase() === tag.toLowerCase())
@@ -238,8 +238,8 @@ export class MultiDayConferenceService {
     return results;
   }
 
-  static getDayThemes(regionKey?: string): { day: string; theme: string; date: string }[] {
-    const days = this.getAllDays(regionKey);
+  static getDayThemes(breakoutGroupKey?: string): { day: string; theme: string; date: string }[] {
+    const days = this.getAllDays(breakoutGroupKey);
     return Object.entries(days).map(([dayKey, dayData]) => ({
       day: dayKey,
       theme: dayData.theme,
@@ -247,12 +247,12 @@ export class MultiDayConferenceService {
     }));
   }
 
-  static getRegionsList(): { key: string; name: string; description: string }[] {
-    const regions = this.getAllRegions();
-    return Object.entries(regions).map(([regionKey, regionData]) => ({
-      key: regionKey,
-      name: regionData.name,
-      description: regionData.description
+  static getBreakoutGroupsList(): { key: string; name: string; description: string }[] {
+    const breakoutGroups = this.getAllBreakoutGroups();
+    return Object.entries(breakoutGroups).map(([breakoutGroupKey, breakoutGroupData]) => ({
+      key: breakoutGroupKey,
+      name: breakoutGroupData.name,
+      description: breakoutGroupData.description
     }));
   }
 

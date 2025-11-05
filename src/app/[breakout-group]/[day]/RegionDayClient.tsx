@@ -1,12 +1,22 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import classNames from 'classnames';
 import { MultiDayConferenceService } from '../../../../services/MultiDayConferenceService';
+import { getBreakoutGroupDisplayName } from '../../../../utils/breakoutGroupUtils';
 import AnimatedCardWrapper from '../../../../components/AnimatedCardWrapper';
 import '@/styles/conference-agenda.css';
 import '@/styles/animations.css';
+
+interface User {
+  pegaId: string;
+  email: string;
+  breakoutGroup: string;
+  preferredName: string;
+  lastName: string;
+  regionalBreakout: string;
+}
 
 interface RegionDayClientProps {
   region: string;
@@ -16,20 +26,30 @@ interface RegionDayClientProps {
 export default function RegionDayClient({ region, day }: RegionDayClientProps) {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   
   const activeRegion = region;
   const activeTab = day;
   
-  // Get conference info from JSON
-  const conferenceInfo = MultiDayConferenceService.getConferenceInfo();
-  
   // Get regions list
-  const regions = MultiDayConferenceService.getRegionsList();
+  const regions = MultiDayConferenceService.getBreakoutGroupsList();
   
   // Validate region and day parameters
   const isValidRegion = regions.some(r => r.key === activeRegion);
   const allDays = MultiDayConferenceService.getAllDays(activeRegion);
   const isValidDay = Object.keys(allDays).includes(activeTab);
+
+  // Load current user from localStorage
+  useEffect(() => {
+    const storedUser = localStorage.getItem('currentUser');
+    if (storedUser) {
+      try {
+        setCurrentUser(JSON.parse(storedUser));
+      } catch (e) {
+        console.error('Error parsing stored user:', e);
+      }
+    }
+  }, []);
 
   // Redirect to home if invalid parameters
   useEffect(() => {
@@ -72,10 +92,6 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
     router.push(`/${activeRegion}/${tabId}`);
   };
 
-  const handleRegionChange = (regionKey: string) => {
-    router.push(`/${regionKey}/${activeTab}`);
-  };
-
   // Don't render if invalid parameters
   if (!isValidRegion || !isValidDay) {
     return (
@@ -97,9 +113,33 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
 
   return (
     <div ref={containerRef} className="conference-container">
+      
       {/* Agenda Section */}
       <div className="agenda-section">
-        {/* Tab Navigation */}
+        {/* Current User Info */}
+        <div className="current-user-info">
+          {currentUser && (
+            <div>
+              <h2 className="current-user-name">
+                Welcome {currentUser.preferredName} {currentUser.lastName}
+              </h2>
+              <div className="user-assignment-info">
+                <span className="breakout-group-info">
+                  <strong>Breakout Group:</strong> {getBreakoutGroupDisplayName(activeRegion)}
+                </span>
+                <span className="region-info">
+                  <strong>Region:</strong> {currentUser.regionalBreakout}
+                </span>
+              </div>
+            </div>
+          )}
+          {/* <div className="current-day-info">
+            <h3 className="current-day-title">{currentTab?.label}</h3>
+            <p className="current-day-theme">{currentTab?.theme}</p>
+          </div> */}
+        </div>
+        
+        {/* Sticky Tab Navigation */}
         <div className="tab-navigation">
           {tabs.map((tab) => (
             <button
@@ -118,19 +158,7 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
           ))}
         </div>
 
-        {/* Current Day Info */}
-        <div className="current-day-info">
-          <h2 className="current-day-title">{currentTab?.label}</h2>
-          <div className="current-region-info">
-            <strong>{currentRegion?.name}</strong>
-            {currentRegion?.description && (
-              <span className="current-region-description"> — {currentRegion.description}</span>
-            )}
-          </div>
-          <p className="current-day-theme">{currentTab?.theme}</p>
-        </div>
-
-        {/* Sessions with Animation */}
+        {/* Sessions Container */}
         <div className="sessions-container">
           {agendaData.map((item, index) => (
             <AnimatedCardWrapper 
@@ -148,36 +176,39 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
                   }
                 )}
               >
-                {/* Session Type Badge */}
-                {!item.isBreak && (
-                  <div className={classNames(
-                    'session-type-badge',
-                    { 
-                      'common-badge': item.isCommon === true,
-                      'regional-badge': item.isCommon === false
-                    }
-                  )}>
-                    {item.isCommon ? '🌐 Common Session' : '📍 Regional Breakout'}
-                  </div>
-                )}
-                
                 {item.isBreak ? (
                   // Break session
                   <div>
-                    <h3 className="break-card-title">{item.title}</h3>
-                    <div className="break-card-time">
-                      {item.time} - {item.endTime}
-                    </div>
+                    <h3 className="break-card-title"> {item.time} - {item.endTime} {item.title} </h3>
                   </div>
                 ) : (
                   // Regular session
                   <div>
-                    <div className="session-header">
-                      <span className="session-time">{item.time}</span>
-                      <span className="session-duration">{item.duration}</span>
+                    <div className="session-top-row">
+                      <span className="session-time">{item.time} - {item.endTime}</span>
+                      <div className="session-top-right">
+                        <span className="session-duration">{item.duration}</span>
+                        {/* Session Type Badge */}
+                        <div className={classNames(
+                          'session-type-badge',
+                          { 
+                            'common-badge': item.isCommon === true,
+                            'regional-badge': item.isCommon === false
+                          }
+                        )}>
+                          {(item.id === 'sat-opening-welcome' || item.id === 'sat-awards' || item.id === 'sat-interactive-session') && currentUser?.regionalBreakout && (
+                            '📍'
+                          ) || (item.isCommon ? '🌐' : '👥')}
+                        </div>
+                      </div>
                     </div>
                     
-                    <h3 className="session-title">{item.title}</h3>
+                    <h3 className="session-title">
+                      {item.title}
+                      {(item.id === 'sat-opening-welcome' || item.id === 'sat-awards' || item.id === 'sat-interactive-session') && currentUser?.regionalBreakout && (
+                        <span className="session-region"> ({currentUser.regionalBreakout})</span>
+                      )}
+                    </h3>
                     
                     {item.speaker && (
                       <div className="session-speaker">
@@ -188,11 +219,11 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
                     
                     <p className="session-description">{item.description}</p>
                     
-                    <div className="session-room">
+                    {/* <div className="session-room">
                       📍 {item.room}
-                    </div>
+                    </div> */}
                     
-                    {item.tags && item.tags.length > 0 && (
+                    {/* {item.tags && item.tags.length > 0 && (
                       <div className="session-tags">
                         {item.tags.map((tag: string, tagIndex: number) => (
                           <span key={tagIndex} className="session-tag">
@@ -200,7 +231,7 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
                           </span>
                         ))}
                       </div>
-                    )}
+                    )} */}
                   </div>
                 )}
               </div>
