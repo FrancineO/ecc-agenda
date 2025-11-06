@@ -1,12 +1,23 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { ClientUserService } from '../../services/ClientUserService';
 import styles from './HomePage.module.css';
 
 export default function Home() {
+  useEffect(() => {
+    // Prevent scrolling on the login page
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, []);
   const router = useRouter();
   const [input, setInput] = useState('');
   const [error, setError] = useState('');
