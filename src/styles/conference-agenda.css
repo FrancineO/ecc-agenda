@@ -114,7 +114,6 @@
   background-color: #ffffff;
   z-index: 100;
   padding: 15px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .tab-button {
@@ -689,10 +688,6 @@
 
 /* Mobile Footer Styles */
 @media (max-width: 579px) {
-  .conference-footer {
-    padding: 10px 15px;
-  }
-  
   .footer-content {
     flex-direction: column;
     gap: 8px;
