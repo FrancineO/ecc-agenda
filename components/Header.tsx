@@ -1,9 +1,9 @@
 "use client";
 
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { MultiDayConferenceService } from '../services/MultiDayConferenceService';
-import './Header.css';
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { MultiDayConferenceService } from "../services/MultiDayConferenceService";
+import "./Header.css";
 
 interface HeaderProps {
   currentRegion?: string;
@@ -12,10 +12,10 @@ interface HeaderProps {
 
 export default function Header({ currentRegion, currentDay }: HeaderProps) {
   const router = useRouter();
-  
+
   // // Get regions list
   // const regions = MultiDayConferenceService.getBreakoutGroupsList();
-  
+
   // const handleBreakoutGroupChange = (breakoutGroupKey: string) => {
   //   if (currentDay) {
   //     router.push(`/${breakoutGroupKey}/${currentDay}`);
@@ -25,47 +25,43 @@ export default function Header({ currentRegion, currentDay }: HeaderProps) {
   // };
 
   return (
-    <header className="conference-header">
-      {currentRegion && (
-      <div className="header-container">
-        {/* Logo and Title Row */}
-        <div className="header-top">
-          <div className="logo-section">
-            {/* Desktop Logo */}
-            <Image 
-              src="https://pega.micecon.com/uploads/images/logo/pega-logo.png"
-              alt="PEGA Logo"
-              width={120}
-              height={40}
-              className="pega-logo-img desktop-logo"
-            />
-            {/* Mobile Logo */}
-            <Image 
-              src="https://productleadersforum.org/wp-content/uploads/2024/02/pega_logo-e1707133201854.png"
-              alt="PEGA Logo"
-              width={120}
-              height={40}
-              className="pega-logo-img mobile-logo"
-            />
-            <div className="conference-title">
-              ECC 2025 Agenda
+    currentRegion && (
+      <header className="conference-header">
+        <div className="header-container">
+          {/* Logo and Title Row */}
+          <div className="header-top">
+            <div className="logo-section">
+              {/* Desktop Logo */}
+              <Image
+                src="https://pega.micecon.com/uploads/images/logo/pega-logo.png"
+                alt="PEGA Logo"
+                width={120}
+                height={40}
+                className="pega-logo-img desktop-logo"
+              />
+              {/* Mobile Logo */}
+              <Image
+                src="https://productleadersforum.org/wp-content/uploads/2024/02/pega_logo-e1707133201854.png"
+                alt="PEGA Logo"
+                width={120}
+                height={40}
+                className="pega-logo-img mobile-logo"
+              />
+              <div className="conference-title">ECC 2025 Agenda</div>
             </div>
-          </div>
-          
-          
+
             <div className="header-actions">
-              <button 
-                onClick={() => router.push('/')}
+              <button
+                onClick={() => router.push("/")}
                 className="change-user-button"
                 title="Change User"
               >
                 Change User
               </button>
             </div>
-          
-          
-          {/* Mobile Region Selector - Only visible on mobile */}
-          {/* {currentRegion && (
+
+            {/* Mobile Region Selector - Only visible on mobile */}
+            {/* {currentRegion && (
             <div className="header-region-selector mobile-only">
               <label className="region-selector-label">Region:</label>
               
@@ -84,10 +80,10 @@ export default function Header({ currentRegion, currentDay }: HeaderProps) {
               </div>
             </div>
           )} */}
-        </div>
-        
-        {/* Desktop Region Selector Row - Only visible on desktop */}
-        {/* {currentRegion && (
+          </div>
+
+          {/* Desktop Region Selector Row - Only visible on desktop */}
+          {/* {currentRegion && (
           <div className="header-region-row desktop-only">
             <div className="header-region-selector">
               <label className="region-selector-label">Breakout Group:</label>
@@ -107,8 +103,8 @@ export default function Header({ currentRegion, currentDay }: HeaderProps) {
             </div>
           </div>
         )} */}
-      </div>
-      )}
-    </header>
+        </div>
+      </header>
     )
+  );
 }
