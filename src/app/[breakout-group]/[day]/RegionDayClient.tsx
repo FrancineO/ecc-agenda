@@ -228,9 +228,6 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
                     {item.speaker && item.speaker == "RDs" && (
                       <div className="session-speaker">
                         {currentUser && currentUser.regionalBreakout == 'Central' ? 'Thorsten Hagenberger' : currentUser?.regionalBreakout == 'North' ? 'Steve Tompkins, Sue Pitkin-Frost & Erik Sol' : 'Camille Coiffet'}
-                        {item.speakerTitle && (
-                          <span>, <em>Regional Directors</em></span>
-                        )}
                       </div>
                     )}
                     
