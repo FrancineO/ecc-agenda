@@ -180,6 +180,12 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
                   // Break session
                   <div>
                     <h3 className="break-card-title"> {item.time} - {item.endTime} {item.title} </h3>
+                    <p className="session-description">{item.description}</p>
+                    {item.room && (
+                      <div className="session-room">
+                        📍 {item.room}
+                      </div>
+                    )}
                   </div>
                 ) : (
                   // Regular session
@@ -210,18 +216,37 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
                       )}
                     </h3>
                     
-                    {item.speaker && (
+                    {item.speaker && item.speaker != "RDs" && (
                       <div className="session-speaker">
                         {item.speaker}
-                        {item.speakerTitle && `, ${item.speakerTitle}`}
+                        {item.speakerTitle && (
+                          <span>, <em>{item.speakerTitle}</em></span>
+                        )}
+                      </div>
+                    )}
+
+                    {item.speaker && item.speaker == "RDs" && (
+                      <div className="session-speaker">
+                        {currentUser && currentUser.regionalBreakout == 'Central' ? 'Thorsten Hagenberger' : currentUser?.regionalBreakout == 'North' ? 'Steve Tompkins, Sue Pitkin-Frost & Erik Sol' : 'Camille Coiffet'}
+                        {item.speakerTitle && (
+                          <span>, <em>Regional Directors</em></span>
+                        )}
                       </div>
                     )}
                     
                     <p className="session-description">{item.description}</p>
                     
-                    {/* <div className="session-room">
-                      📍 {item.room}
-                    </div> */}
+                    {item.room && item.room != "Regional Breakout Rooms" && (
+                      <div className="session-room">
+                        📍 {item.room}
+                      </div>
+                    )}
+
+                    {item.room == "Regional Breakout Rooms" && (
+                      <div className="session-room">
+                        📍 {currentUser && currentUser.regionalBreakout == 'Central' ? 'Belvedere' : currentUser?.regionalBreakout == 'North' ? 'Prague ABCD' : 'LoftOne'}
+                      </div>
+                    )}
                     
                     {/* {item.tags && item.tags.length > 0 && (
                       <div className="session-tags">
