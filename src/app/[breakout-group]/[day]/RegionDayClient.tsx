@@ -163,7 +163,7 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
           {agendaData.map((item, index) => (
             <AnimatedCardWrapper 
               key={`${activeTab}-${item.id || index}`} 
-              delay={index * 150}
+              delay={index * 50}
               animationType="fadeInUp"
             >
               <div
