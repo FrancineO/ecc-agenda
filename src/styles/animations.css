@@ -2,7 +2,7 @@
 .scrollAnimation {
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .scrollAnimationVisible {
@@ -14,7 +14,7 @@
 .fadeInUp {
   opacity: 0;
   transform: translateY(40px);
-  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .fadeInUpVisible {
@@ -25,7 +25,7 @@
 .fadeInLeft {
   opacity: 0;
   transform: translateX(-40px);
-  transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .fadeInLeftVisible {
@@ -36,7 +36,7 @@
 .fadeInRight {
   opacity: 0;
   transform: translateX(40px);
-  transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .fadeInRightVisible {
@@ -47,7 +47,7 @@
 .scaleIn {
   opacity: 0;
   transform: scale(0.8);
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .scaleInVisible {
@@ -58,7 +58,7 @@
 .slideInFromBottom {
   opacity: 0;
   transform: translateY(60px);
-  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .slideInFromBottomVisible {
@@ -110,7 +110,7 @@ animation: subtle-pulse-dark 4s ease-in-out infinite;
 .tabContent {
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .tabContentVisible {
@@ -119,7 +119,7 @@ animation: subtle-pulse-dark 4s ease-in-out infinite;
 }
 
 .tabButton {
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease-in-out;
   position: relative;
 }
 
@@ -137,7 +137,7 @@ animation: subtle-pulse-dark 4s ease-in-out infinite;
   height: 3px;
   background: linear-gradient(90deg, #3b82f6, #6366f1);
   border-radius: 2px;
-  animation: tabIndicator 0.3s ease-out;
+  animation: tabIndicator 0.2s ease-out;
 }
 
 @keyframes tabIndicator {
