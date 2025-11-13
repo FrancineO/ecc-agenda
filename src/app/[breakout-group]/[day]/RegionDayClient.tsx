@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import classNames from 'classnames';
-import { MultiDayConferenceService } from '../../../../services/MultiDayConferenceService';
+import { MultiDayConferenceService, Room } from '../../../../services/MultiDayConferenceService';
 import { getBreakoutGroupDisplayName } from '../../../../utils/breakoutGroupUtils';
 import AnimatedCardWrapper from '../../../../components/AnimatedCardWrapper';
+import RoomMapModal from '../../../../components/RoomMapModal';
 import '@/styles/conference-agenda.css';
 import '@/styles/animations.css';
 
@@ -27,10 +28,40 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   const activeRegion = region;
   const activeTab = day;
   
+  // Handle room click to open modal
+  const handleRoomClick = (roomId: string) => {
+    const roomData = MultiDayConferenceService.getRoom(roomId);
+    if (roomData) {
+      setSelectedRoom(roomData);
+      setIsModalOpen(true);
+    }
+  };
+  
+  // Close modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedRoom(null);
+  };
+  
+  // Get room display name with description
+  const getRoomDisplayName = (roomId: string) => {
+    if (!roomId) return '';
+    
+    const roomData = MultiDayConferenceService.getRoom(roomId);
+    if (roomData) {
+      return `${roomData.name} - ${roomData.description}`;
+    }
+    
+    // Fallback for unmapped room names
+    return roomId;
+  };
+
   // Get regions list
   const regions = MultiDayConferenceService.getBreakoutGroupsList();
   
@@ -183,7 +214,12 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
                     <p className="session-description">{item.description}</p>
                     {item.room && (
                       <div className="session-room">
-                        📍 {item.room}
+                        📍 <span 
+                          className="room-clickable"
+                          onClick={() => handleRoomClick(item.room)}
+                        >
+                          {getRoomDisplayName(item.room)}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -235,13 +271,27 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
                     
                     {item.room && item.room != "Regional Breakout Rooms" && (
                       <div className="session-room">
-                        📍 {item.room}
+                        📍 <span 
+                          className="room-clickable"
+                          onClick={() => handleRoomClick(item.room)}
+                        >
+                          {getRoomDisplayName(item.room)}
+                        </span>
                       </div>
                     )}
 
                     {item.room == "Regional Breakout Rooms" && (
                       <div className="session-room">
-                        📍 {currentUser && currentUser.regionalBreakout == 'Central' ? 'Belvedere' : currentUser?.regionalBreakout == 'North' ? 'Prague ABCD' : 'LoftOne'}
+                        📍 <span 
+                          className="room-clickable"
+                          onClick={() => handleRoomClick(
+                            currentUser && currentUser.regionalBreakout == 'Central' ? 'Belvedere' : 
+                            currentUser?.regionalBreakout == 'North' ? 'Prague-ABCD' : 
+                            'LoftOne'
+                          )}
+                        >
+                          {currentUser && currentUser.regionalBreakout == 'Central' ? getRoomDisplayName('Belvedere') : currentUser?.regionalBreakout == 'North' ? getRoomDisplayName('Prague-ABCD') : getRoomDisplayName('LoftOne')}
+                        </span>
                       </div>
                     )}
                     
@@ -261,6 +311,27 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
           ))}
         </div>
       </div>
+      
+      {/* Room Map Modal */}
+      <RoomMapModal 
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        room={selectedRoom}
+      />
+      
+      <style jsx>{`
+        .room-clickable {
+          color: #3b82f6;
+          cursor: pointer;
+          text-decoration: underline;
+          transition: color 0.2s ease;
+        }
+        
+        .room-clickable:hover {
+          color: #1d4ed8;
+          text-decoration: none;
+        }
+      `}</style>
     </div>
   );
 }

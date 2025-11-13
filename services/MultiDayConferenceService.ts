@@ -45,8 +45,9 @@ export interface Speaker {
 export interface Room {
   id: string;
   name: string;
-  capacity: number;
+  capacity?: number;
   description: string;
+  mapLink?: string;
 }
 
 export interface ConferenceInfo {
@@ -157,11 +158,12 @@ export class MultiDayConferenceService {
   }
 
   static getAllSpeakers(): Speaker[] {
-    return multiDayData.speakers;
+    return (multiDayData as any).speakers || [];
   }
 
   static getSpeaker(speakerId: string): Speaker | undefined {
-    return multiDayData.speakers.find(speaker => speaker.id === speakerId);
+    const speakers = this.getAllSpeakers();
+    return speakers.find((speaker: Speaker) => speaker.id === speakerId);
   }
 
   static getAllRooms(): Room[] {
