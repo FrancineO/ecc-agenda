@@ -62,6 +62,20 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
     return roomId;
   };
 
+  // Get break type information for categorizing badges
+  const getBreakTypeInfo = (item: { type?: string }) => {
+    switch (item.type) {
+      case 'coffee':
+        return { type: 'coffee', emoji: '☕️', label: 'Coffee Break' };
+      case 'meal':
+        return { type: 'meal', emoji: '🍽️', label: 'Meal' };
+      case 'drinks':
+        return { type: 'drinks', emoji: '🍹', label: 'Drinks Break' };
+      default:
+        return { type: 'break', emoji: '▶️', label: 'Break' };
+    }
+  };
+
   // Get regions list
   const regions = MultiDayConferenceService.getBreakoutGroupsList();
   
@@ -200,18 +214,46 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
               <div
                 className={classNames(
                   'session-card',
-                  { 
+                  {
                     'break-card': item.isBreak,
                     'common-session': item.isCommon === true,
                     'regional-session': item.isCommon === false
+                  },
+                  {
+                    'coffee-card': item.type === 'coffee',
+                    'drink-card': item.type === 'drinks',
+                    'meal-card': item.type === 'meal'
                   }
                 )}
               >
                 {item.isBreak ? (
                   // Break session
                   <div>
-                    <h3 className="break-card-title"> {item.time} - {item.endTime} {item.title} </h3>
+                    <div className="session-top-row">
+                      <div className='session-break-header'>
+                        <span className="session-time">{item.time} - {item.endTime}</span>
+                        <h3 className="session-title break-title">
+                          {item.title}
+                        </h3>
+                      </div>
+                      
+                      <div className="session-top-right">
+                        <span className="session-duration">{item.duration}</span>
+                        {/* Break Type Badge */}
+                        <div className={classNames(
+                          'session-type-badge',
+                          'break-badge',
+                          `break-${getBreakTypeInfo(item).type}`
+                        )}>
+                          {getBreakTypeInfo(item).emoji}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
+                    
                     <p className="session-description">{item.description}</p>
+                    
                     {item.room && (
                       <div className="session-room">
                         📍 <span 

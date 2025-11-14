@@ -20,14 +20,14 @@
   font-size: 2.5em;
   font-weight: 700;
   margin: 0;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .conference-subtitle {
   font-size: 1.2em;
   font-weight: 300;
   color: rgba(255, 255, 255, 0.9);
-  margin-top: 10px;
+  margin-top: 6px;
   margin-bottom: 0;
 }
 
@@ -229,7 +229,7 @@
 /* Common vs Regional Session Styles */
 .session-card.common-session {
   border-left: 4px solid #0066cc;
-  background-color: #ffffff;
+  background-color: #f4f9ff;
 }
 
 .session-card.regional-session {
@@ -238,8 +238,23 @@
 }
 
 .session-card.break-card {
-  background-color: #fffbf0;
-  border-left: 4px solid #ff9800;
+  background-color: #f3f0ff;
+  border-left: 4px solid #502dff;
+}
+
+.session-card.coffee-card {
+  background-color: #fdf1f5;
+  border-left: 4px solid #c2185b;
+}
+
+.session-card.drink-card {
+  background-color: #effafe;
+  border-left: 4px solid #98e5ff;
+}
+
+.session-card.meal-card {
+  background-color: #fffef5;
+  border-left: 4px solid #fff176;
 }
 
 /* Session Type Badge */
@@ -266,6 +281,47 @@
   border: 1px solid #c3e6cb;
 }
 
+.session-type-badge.meal-badge {
+  background-color: #e8f5e8;
+  color: orange;
+  border: 1px solid #c3e6cb;
+}
+
+/* Break-specific badges */
+.session-type-badge.break-badge {
+  background-color: #d0f3ff;
+  border: 1px solid #97e4ff;
+}
+
+.session-type-badge.break-coffee {
+  background-color: #fce4ec;
+  color: #c2185b;
+  border: 1px solid #f8bbd9;
+}
+
+.session-type-badge.break-meal {
+  background-color: #fbf08f;
+  color: #f57f17;
+  border: 1px solid #fff176;
+}
+
+.session-type-badge.break-break {
+  background-color: #dee3ff;
+  border: 1px solid #a28fff;
+}
+
+/* Break title styling */
+.break-title {
+  color: #003366;
+}
+
+.break-type-label {
+  font-size: 0.75rem;
+  color: #666;
+  font-weight: normal;
+  margin-left: 8px;
+}
+
 /* Animation Integration */
 .fadeInUp {
   opacity: 0;
@@ -287,8 +343,14 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 12px;
   position: relative;
+}
+
+.session-break-header {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: baseline;
 }
 
 .session-top-right {
@@ -314,7 +376,7 @@
   color: #333333;
   font-size: 1.2rem;
   font-weight: bold;
-  margin: 0 0 10px 0;
+  margin: 0 0 6px 0;
   line-height: 1.4;
 }
 
@@ -342,19 +404,19 @@
   color: #003366;
   font-weight: 600;
   font-size: 1rem;
-  margin: 0 0 10px 0;
+  margin: 0 0 6px 0;
 }
 
 .session-description {
   color: #555555;
   line-height: 1.5;
-  margin: 0 0 10px 0;
   font-size: 0.95rem;
 }
 
 .session-room {
   font-size: 0.7rem;
   font-weight: normal;
+  margin-top: 6px;
 }
 
 /* Session Tags */
@@ -448,9 +510,8 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 8px;
-    margin-bottom: 10px;
   }
-  
+
   .session-top-right {
     align-self: flex-start;
   }
@@ -503,7 +564,7 @@
   
   .agenda-title {
     font-size: 1rem;
-    margin: 0 0 10px 0;
+    margin: 0 0 6px 0;
   }
   
   .tab-navigation {
@@ -553,10 +614,6 @@
   
   .session-description {
     font-size: 0.75rem;
-  }
-  
-  .session-top-row {
-    gap: 6px;
   }
   
   .session-time {
@@ -688,7 +745,6 @@
 @media (max-width: 579px) {
   .footer-content {
     flex-direction: column;
-    gap: 8px;
     text-align: center;
   }
   

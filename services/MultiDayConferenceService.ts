@@ -12,7 +12,7 @@ export interface AgendaItem {
   room: string;
   tags: string[];
   isBreak: boolean;
-  type: 'keynote' | 'session' | 'workshop' | 'break' | 'closing';
+  type: 'keynote' | 'session' | 'workshop' | 'break' | 'closing' | 'coffee' | 'drinks' | 'meal';
   imageUrl?: string;
   isCommon?: boolean;
 }

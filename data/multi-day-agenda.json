@@ -14,7 +14,7 @@
       "agenda": [
         {
           "id": "thu-coffee-break",
-          "title": "Coffee Break ☕️",
+          "title": "Coffee Break",
           "description": "",
           "speaker": "",
           "speakerTitle": "",
@@ -24,7 +24,7 @@
           "room": "Foyer-Prague-ABCD",
           "tags": ["Break", "Coffee"],
           "isBreak": true,
-          "type": "break",
+          "type": "coffee",
           "isCommon": true
         },
         {
@@ -83,7 +83,7 @@
           "room": "Loreta",
           "tags": ["Break", "Dinner"],
           "isBreak": true,
-          "type": "break",
+          "type": "meal",
           "isCommon": true,
           "imageUrl": "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=300&fit=crop"
         },
@@ -97,7 +97,7 @@
           "room": "Bull-and-Bonito",
           "tags": ["Break", "Dinner"],
           "isBreak": true,
-          "type": "break",
+          "type": "drinks",
           "isCommon": true,
           "imageUrl": "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&h=300&fit=crop"
         }
@@ -126,7 +126,7 @@
         },
         {
           "id": "fri-eod",
-          "title": "BREAK ☕️",
+          "title": "BREAK",
           "description": "Move to evening event, 19 min walk or 10 min by metro",
           "time": "18:30",
           "endTime": "19:00",
@@ -146,7 +146,7 @@
           "duration": "270 min",
           "room": "Lvi-Dvur",
           "isBreak": true,
-          "type": "break",
+          "type": "meal",
           "isCommon": true,
           "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop"
         }
@@ -158,15 +158,27 @@
       "theme": "Regional Sessions & Closing",
       "agenda": [
         {
+          "id": "sat-intro",
+          "title": "Luggage storage",
+          "time": "8:00",
+          "endTime": "8:30",
+          "duration": "30 min",
+          "room": "Vienna",
+          "tags": [],
+          "isBreak": true,
+          "type": "break",
+          "isCommon": true
+        },
+        {
           "id": "sat-break",
-          "title": "BREAK ☕️",
+          "title": "Coffee Break",
           "time": "10:15",
           "endTime": "10:35",
           "duration": "20 min",
           "room": "",
           "tags": ["Opening", "Strategy", "Regional"],
           "isBreak": true,
-          "type": "break",
+          "type": "coffee",
           "isCommon": true
         },
         {
@@ -223,7 +235,7 @@
           "time": "12:00",
           "endTime": "12:15",
           "duration": "15 min",
-          "room": "",
+          "room": "Prague-ABCD",
           "tags": ["Break"],
           "isBreak": true,
           "type": "break",
@@ -243,6 +255,34 @@
           "isBreak": false,
           "type": "closing",
           "isCommon": true
+        },
+        {
+          "id": "sat-lunch",
+          "title": "Lunch",
+          "description": "",
+          "time": "12:30",
+          "endTime": "14:00",
+          "duration": "90 min",
+          "room": "Loreta",
+          "tags": ["Break", "Lunch"],
+          "isBreak": true,
+          "type": "meal",
+          "isCommon": true
+        },
+        {
+          "id": "sat-departure-move",
+          "title": "Departure",
+          "description": "We kindly ask that you take the metro or share an Uber to reach the airport",
+          "speaker": "",
+          "speakerTitle": "",
+          "time": "14:00",
+          "endTime": "",
+          "duration": "",
+          "room": "",
+          "tags": ["Break"],
+          "isBreak": true,
+          "type": "break",
+          "isCommon": false
         }
       ]
     }
@@ -329,7 +369,7 @@
               "room": "",
               "tags": ["Break"],
               "isBreak": true,
-              "type": "break",
+              "type": "coffee",
               "isCommon": false
             },
             {
@@ -374,7 +414,7 @@
               "room": "",
               "tags": ["Break", "Lunch"],
               "isBreak": true,
-              "type": "break",
+              "type": "meal",
               "isCommon": false
             },
             {
@@ -439,7 +479,7 @@
             },
             {
               "id": "fri-mgmt-13",
-              "title": "BREAK ☕️",
+              "title": "BREAK",
               "description": "",
               "speaker": "",
               "speakerTitle": "",
@@ -449,7 +489,7 @@
               "room": "",
               "tags": ["Break"],
               "isBreak": true,
-              "type": "break",
+              "type": "coffee",
               "isCommon": false
             },
             {
@@ -506,7 +546,7 @@
               "time": "16:00",
               "endTime": "16:45",
               "duration": "45 min",
-              "room": "",
+              "room": "Prague-ABCD",
               "tags": ["Break"],
               "isBreak": true,
               "type": "break",
@@ -640,7 +680,7 @@
             },
             {
               "id": "fri-dc1-04",
-              "title": "BREAK ☕️",
+              "title": "BREAK",
               "description": "",
               "speaker": "",
               "speakerTitle": "",
@@ -650,7 +690,7 @@
               "room": "",
               "tags": [],
               "isBreak": true,
-              "type": "break",
+              "type": "coffee",
               "isCommon": false
             },
             {
@@ -685,7 +725,7 @@
             },
             {
               "id": "fri-dc1-08",
-              "title": "LUNCH 🍲",
+              "title": "LUNCH",
               "description": "",
               "speaker": "",
               "speakerTitle": "",
@@ -695,7 +735,7 @@
               "room": "Prague-AB",
               "tags": [],
               "isBreak": true,
-              "type": "break",
+              "type": "meal",
               "isCommon": false
             },
             {
@@ -729,7 +769,7 @@
             },
             {
               "id": "fri-dc1-12",
-              "title": "BREAK ☕️",
+              "title": "BREAK",
               "description": "",
               "speaker": "",
               "speakerTitle": "",
@@ -739,7 +779,7 @@
               "room": "",
               "tags": [],
               "isBreak": true,
-              "type": "break",
+              "type": "coffee",
               "isCommon": false
             },
             {
@@ -789,8 +829,8 @@
             },
             {
               "id": "fri-dc1-16",
-              "title": "BREAK ☕️",
-              "description": "Move to plenary room",
+              "title": "Move to plenary room",
+              "description": "",
               "speaker": "",
               "speakerTitle": "",
               "time": "16:00",
@@ -917,7 +957,7 @@
             },
             {
               "id": "fri-dc2-04",
-              "title": "BREAK ☕️",
+              "title": "BREAK",
               "description": "",
               "speaker": "",
               "speakerTitle": "",
@@ -927,7 +967,7 @@
               "room": "",
               "tags": [],
               "isBreak": true,
-              "type": "break",
+              "type": "coffee",
               "isCommon": false
             },
             {
@@ -972,7 +1012,7 @@
               "room": "",
               "tags": [],
               "isBreak": true,
-              "type": "break",
+              "type": "meal",
               "isCommon": false
             },
             {
@@ -1007,7 +1047,7 @@
             },
             {
               "id": "fri-dc2-12",
-              "title": "BREAK ☕️",
+              "title": "BREAK",
               "description": "",
               "speaker": "",
               "speakerTitle": "",
@@ -1017,7 +1057,7 @@
               "room": "",
               "tags": [],
               "isBreak": true,
-              "type": "break",
+              "type": "coffee",
               "isCommon": false
             },
             {
@@ -1067,8 +1107,8 @@
             },
             {
               "id": "fri-dc2-16",
-              "title": "BREAK ☕️",
-              "description": "Move to plenary room",
+              "title": "Move to plenary room",
+              "description": "",
               "speaker": "",
               "speakerTitle": "",
               "time": "16:00",
@@ -1195,7 +1235,7 @@
             },
             {
               "id": "fri-dc3-04",
-              "title": "BREAK ☕️",
+              "title": "BREAK",
               "description": "",
               "speaker": "",
               "speakerTitle": "",
@@ -1205,7 +1245,7 @@
               "room": "",
               "tags": [],
               "isBreak": true,
-              "type": "break",
+              "type": "coffee",
               "isCommon": false
             },
             {
@@ -1250,7 +1290,7 @@
               "room": "",
               "tags": [],
               "isBreak": true,
-              "type": "break",
+              "type": "meal",
               "isCommon": false
             },
             {
@@ -1285,7 +1325,7 @@
             },
             {
               "id": "fri-dc3-12",
-              "title": "BREAK ☕️",
+              "title": "BREAK",
               "description": "",
               "speaker": "",
               "speakerTitle": "",
@@ -1295,7 +1335,7 @@
               "room": "",
               "tags": [],
               "isBreak": true,
-              "type": "break",
+              "type": "coffee",
               "isCommon": false
             },
             {
@@ -1345,8 +1385,8 @@
             },
             {
               "id": "fri-dc3-16",
-              "title": "BREAK ☕️",
-              "description": "Move to plenary room",
+              "title": "Move to plenary room",
+              "description": "",
               "speaker": "",
               "speakerTitle": "",
               "time": "16:00",
@@ -1448,6 +1488,12 @@
       "name": "Belvedere",
       "description": "2nd floor",
       "mapLink": "/maps/belvedere.jpg"
+    },
+    {      
+      "id": "Vienna",
+      "name": "Vienna",
+      "description": "2nd floor",
+      "mapLink": "/maps/vienna.jpg"
     },
     {
       "id": "LoftOne",
