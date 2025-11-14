@@ -94,7 +94,7 @@
           "time": "20:30",
           "endTime": "22:30",
           "duration": "120 min",
-          "room": "Bull-and-Bonita",
+          "room": "Bull-and-Bonito",
           "tags": ["Break", "Dinner"],
           "isBreak": true,
           "type": "break",
@@ -1452,23 +1452,26 @@
     {
       "id": "LoftOne",
       "name": "Loft One",
-      "description": "9th floor"
+      "description": "9th floor",
+      "mapLink": "/maps/loft-one.jpg"
     },
     {
       "id": "Loreta",
       "name": "Restaurant Loreta",
       "description": "2nd floor",
-      "mapLink": "/maps/loreta.png"
+      "mapLink": "/maps/loreta.jpg"
     },
     {
-      "id": "Bull-and-Bonita",
-      "name": "Bar Bull & Bonita",
-      "description": "Ground floor - next to lobby"
+      "id": "Bull-and-Bonito",
+      "name": "Bar Bull & Bonito",
+      "description": "Ground floor - next to lobby",
+      "mapLink": "/maps/bull-and-bonito.jpg"
     },
     {
       "id": "Lvi-Dvur",
       "name": "Restaurant Lvi Dvur",
-      "description": "U Prašného mostu 51/6, 118 00 Praha 1-Hradčany"
+      "description": "U Prašného mostu 51/6, 118 00 Praha 1-Hradčany",
+      "mapLink": "/maps/lvi-dvur.jpg"
     }
   ]
 }
