@@ -158,7 +158,7 @@ export class MultiDayConferenceService {
   }
 
   static getAllSpeakers(): Speaker[] {
-    return (multiDayData as any).speakers || [];
+    return (multiDayData as { speakers?: Speaker[] }).speakers || [];
   }
 
   static getSpeaker(speakerId: string): Speaker | undefined {

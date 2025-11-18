@@ -9,6 +9,7 @@ export interface User {
   regionalBreakout: string;
   preferredName: string;
   lastName: string;
+  saturdayBreakoutGroup?: string;
 }
 
 interface MongoUser {
@@ -18,6 +19,7 @@ interface MongoUser {
   "Regional Breakout": string;
   "Preferred Name": string;
   "Last Name": string;
+  "Saturday Delivery Circle Breakout"?: number | string;
 }
 
 export class UserDatabaseService {
@@ -76,7 +78,9 @@ export class UserDatabaseService {
           breakoutGroup: this.getBreakoutGroup(document["Delivery Circle Breakout"]),
           regionalBreakout: document["Regional Breakout"] || '',
           preferredName: document["Preferred Name"] || '',
-          lastName: document["Last Name"] || ''
+          lastName: document["Last Name"] || '',
+          saturdayBreakoutGroup: document["Saturday Delivery Circle Breakout"] ? 
+            this.getBreakoutGroup(document["Saturday Delivery Circle Breakout"]) : undefined
         };
       }
       
@@ -105,7 +109,9 @@ export class UserDatabaseService {
           breakoutGroup: this.getBreakoutGroup(document["Delivery Circle Breakout"]),
           regionalBreakout: document["Regional Breakout"] || '',
           preferredName: document["Preferred Name"] || '',
-          lastName: document["Last Name"] || ''
+          lastName: document["Last Name"] || '',
+          saturdayBreakoutGroup: document["Saturday Delivery Circle Breakout"] ? 
+            this.getBreakoutGroup(document["Saturday Delivery Circle Breakout"]) : undefined
         };
       }
       
@@ -139,7 +145,9 @@ export class UserDatabaseService {
           breakoutGroup: this.getBreakoutGroup(document["Delivery Circle Breakout"]),
           regionalBreakout: document["Regional Breakout"] || '',
           preferredName: document["Preferred Name"] || '',
-          lastName: document["Last Name"] || ''
+          lastName: document["Last Name"] || '',
+          saturdayBreakoutGroup: document["Saturday Delivery Circle Breakout"] ? 
+            this.getBreakoutGroup(document["Saturday Delivery Circle Breakout"]) : undefined
         };
       }
       
@@ -201,7 +209,9 @@ export class UserDatabaseService {
         breakoutGroup: this.getBreakoutGroup(doc["Delivery Circle Breakout"]),
         regionalBreakout: doc["Regional Breakout"] || '',
         preferredName: doc["Preferred Name"] || '',
-        lastName: doc["Last Name"] || ''
+        lastName: doc["Last Name"] || '',
+        saturdayBreakoutGroup: doc["Saturday Delivery Circle Breakout"] ? 
+          this.getBreakoutGroup(doc["Saturday Delivery Circle Breakout"]) : undefined
       }));
     } catch (error) {
       console.error('Database error in getAllUsers:', error);

@@ -17,6 +17,7 @@ interface User {
   preferredName: string;
   lastName: string;
   regionalBreakout: string;
+  saturdayBreakoutGroup?: string;
 }
 
 interface RegionDayClientProps {
@@ -68,7 +69,7 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
       case 'coffee':
         return { type: 'coffee', emoji: '☕️', label: 'Coffee Break' };
       case 'meal':
-        return { type: 'meal', emoji: '🍽️', label: 'Meal' };
+      return { type: 'meal', emoji: '🍽️', label: 'Meal' };
       case 'drinks':
         return { type: 'drinks', emoji: '🍹', label: 'Drinks Break' };
       default:
@@ -103,6 +104,27 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
     }
   }, [activeRegion, activeTab, isValidRegion, isValidDay, router]);
 
+  // Handle day-specific breakout group redirection
+  useEffect(() => {
+    if (currentUser) {
+      let expectedBreakoutGroup: string;
+      
+      // Determine the expected breakout group based on the day
+      if (activeTab === 'saturday' && currentUser.saturdayBreakoutGroup) {
+        // Saturday with specific Saturday assignment
+        expectedBreakoutGroup = currentUser.saturdayBreakoutGroup;
+      } else {
+        // All other days (Thursday, Friday) or Saturday without specific assignment
+        expectedBreakoutGroup = currentUser.breakoutGroup;
+      }
+      
+      // If we're not in the correct breakout group for this day, redirect
+      if (expectedBreakoutGroup !== activeRegion) {
+        router.push(`/${expectedBreakoutGroup}/${activeTab}`);
+      }
+    }
+  }, [currentUser, activeTab, activeRegion, router]);
+
   // Get agenda data for current region and day
   const getCurrentDayAgenda = () => {
     try {
@@ -129,12 +151,26 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
   };
 
   const tabs = getTabsFromData();
-  const currentTab = tabs.find(tab => tab.id === activeTab) || tabs[0];
-  const currentRegion = regions.find(region => region.key === activeRegion) || regions[0];
   const agendaData = getCurrentDayAgenda();
 
   const handleTabChange = (tabId: string) => {
-    router.push(`/${activeRegion}/${tabId}`);
+    if (currentUser) {
+      let targetBreakoutGroup: string;
+      
+      // Determine the correct breakout group for the target day
+      if (tabId === 'saturday' && currentUser.saturdayBreakoutGroup) {
+        // Saturday with specific Saturday assignment
+        targetBreakoutGroup = currentUser.saturdayBreakoutGroup;
+      } else {
+        // All other days (Thursday, Friday) or Saturday without specific assignment
+        targetBreakoutGroup = currentUser.breakoutGroup;
+      }
+      
+      router.push(`/${targetBreakoutGroup}/${tabId}`);
+    } else {
+      // Fallback if no user is loaded
+      router.push(`/${activeRegion}/${tabId}`);
+    }
   };
 
   // Don't render if invalid parameters
@@ -169,9 +205,21 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
                 Welcome {currentUser.preferredName} {currentUser.lastName}
               </h2>
               <div className="user-assignment-info">
-                <span className="breakout-group-info">
-                  <strong>Breakout Group:</strong> {getBreakoutGroupDisplayName(activeRegion)}
-                </span>
+                {currentUser.saturdayBreakoutGroup && 
+                 currentUser.saturdayBreakoutGroup !== currentUser.breakoutGroup ? (
+                  <>
+                    <span className="breakout-group-info">
+                      <strong>Friday Breakout Group:</strong> {getBreakoutGroupDisplayName(currentUser.breakoutGroup)}
+                    </span>
+                    <span className="breakout-group-info">
+                      <strong>Saturday Breakout Group:</strong> {getBreakoutGroupDisplayName(currentUser.saturdayBreakoutGroup)}
+                    </span>
+                  </>
+                ) : (
+                  <span className="breakout-group-info">
+                    <strong>Breakout Group:</strong> {getBreakoutGroupDisplayName(activeRegion)}
+                  </span>
+                )}
                 <span className="region-info">
                   <strong>Region:</strong> {currentUser.regionalBreakout}
                 </span>

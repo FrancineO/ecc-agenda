@@ -166,12 +166,14 @@
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .breakout-group-info,
 .region-info {
   color: #555;
   font-size: 0.9rem;
+  min-width: 200px;
 }
 
 .breakout-group-info strong,

@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { MultiDayConferenceService } from "../services/MultiDayConferenceService";
 import "./Header.css";
 
 interface HeaderProps {
@@ -10,7 +9,7 @@ interface HeaderProps {
   currentDay?: string;
 }
 
-export default function Header({ currentRegion, currentDay }: HeaderProps) {
+export default function Header({ currentRegion }: HeaderProps) {
   const router = useRouter();
 
   // // Get regions list
