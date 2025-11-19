@@ -406,7 +406,11 @@
   color: #003366;
   font-weight: 600;
   font-size: 1rem;
-  margin: 0 0 6px 0;
+}
+
+.session-speaker-title {
+  color: #003366;
+  font-size: 0.9rem;
 }
 
 .session-description {
@@ -529,6 +533,10 @@
   .session-speaker {
     font-size: 0.85rem;
   }
+
+  .session-speaker-title {
+  font-size: 0.75rem;
+}
   
   .session-description {
     font-size: 0.8rem;
@@ -614,6 +622,10 @@
     font-size: 0.8rem;
   }
   
+  .session-speaker-title {
+    font-size: 0.7rem;
+  }
+  
   .session-description {
     font-size: 0.75rem;
   }
@@ -667,6 +679,10 @@
   
   .session-speaker {
     font-size: 0.75rem;
+  }
+ 
+  .session-speaker-title {
+    font-size: 0.65rem;
   }
   
   .session-description {

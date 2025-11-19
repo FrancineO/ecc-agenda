@@ -343,12 +343,16 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
                     </h3>
                     
                     {item.speaker && item.speaker != "RDs" && (
-                      <div className="session-speaker">
-                        {item.speaker}
-                        {item.speakerTitle && (
-                          <span>, <em>{item.speakerTitle}</em></span>
-                        )}
-                      </div>
+                      <>
+                        <div className="session-speaker">
+                          {item.speaker}
+                        </div>
+                        <p className="session-speaker-title">
+                          {item.speakerTitle && (
+                            <span><em>{item.speakerTitle}</em></span>
+                          )}
+                        </p>
+                      </>
                     )}
 
                     {item.speaker && item.speaker == "RDs" && (
