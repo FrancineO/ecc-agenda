@@ -356,9 +356,14 @@ export default function RegionDayClient({ region, day }: RegionDayClientProps) {
                     )}
 
                     {item.speaker && item.speaker == "RDs" && (
-                      <div className="session-speaker">
-                        {currentUser && currentUser.regionalBreakout == 'Central' ? 'Thorsten Hagenberger' : currentUser?.regionalBreakout == 'North' ? 'Steve Tompkins, Sue Pitkin-Frost & Erik Sol' : 'Camille Coiffet'}
-                      </div>
+                      <>
+                        <div className="session-speaker">
+                          {currentUser && currentUser.regionalBreakout == 'Central' ? 'Thorsten Hagenberger' : currentUser?.regionalBreakout == 'North' ? 'Steve Tomkins, Sue Pitkin-Frost & Erik Sol' : 'Camille Coiffet'}
+                        </div>
+                        <p className="session-speaker-title">
+                          <span><em> {currentUser && currentUser.regionalBreakout == 'Central' ? 'Regional Director Consulting EMEA Central' : currentUser?.regionalBreakout == 'North' ? 'Consulting Regional Manager, Consulting Solutions Executive & Manager of Regional Consulting' : 'Director of Regional Consulting'}</em></span>
+                        </p>
+                      </>
                     )}
                     
                     <p className="session-description">{item.description}</p>
